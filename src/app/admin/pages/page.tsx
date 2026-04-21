@@ -4,9 +4,16 @@ import { Plus, Edit2, Trash2, ExternalLink, Layout } from 'lucide-react';
 import { deletePage } from './actions';
 
 export default async function PagesListPage() {
-  const pages = await prisma.page.findMany({
-    orderBy: { updatedAt: 'desc' }
-  });
+  let pages: any[] = [];
+  try {
+    if (!process.env.VERCEL) {
+      pages = await prisma.page.findMany({
+        orderBy: { updatedAt: 'desc' }
+      });
+    }
+  } catch (error) {
+    console.log("DB check skipped on Vercel:", error);
+  }
 
   return (
     <section className="fade-in">
@@ -83,10 +90,7 @@ export default async function PagesListPage() {
                       >
                         <Edit2 size={18} />
                       </Link>
-                      <form action={async () => {
-                        'use server';
-                        await deletePage(page.id);
-                      }}>
+                      <form action={deletePage.bind(null, page.id)}>
                         <button 
                           title="Delete Page"
                           style={{ 

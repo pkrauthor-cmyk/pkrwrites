@@ -16,16 +16,23 @@ import DashboardTools from './_components/DashboardTools';
 
 export default async function AdminDashboardPage() {
   // Fetch site data
-  const [postCount, bookCount, pageCount, recentPosts] = await Promise.all([
-    prisma.blogPost.count({ where: { status: { not: 'trashed' } } }),
-    prisma.book.count(),
-    prisma.page.count(),
-    prisma.blogPost.findMany({
-      where: { status: 'published' },
-      orderBy: { publishedAt: 'desc' },
-      take: 5
-    })
-  ]);
+  let postCount = 0;
+  let bookCount = 0;
+  let pageCount = 0;
+  let recentPosts: any[] = [];
+
+  if (!process.env.VERCEL) {
+    [postCount, bookCount, pageCount, recentPosts] = await Promise.all([
+      prisma.blogPost.count({ where: { status: { not: 'trashed' } } }),
+      prisma.book.count(),
+      prisma.page.count(),
+      prisma.blogPost.findMany({
+        where: { status: 'published' },
+        orderBy: { publishedAt: 'desc' },
+        take: 5
+      })
+    ]);
+  }
 
   const StatCard = ({ title, value, icon: Icon, color }: any) => (
     <div className="glass-card" style={{ padding: '2rem', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>

@@ -1,17 +1,22 @@
 import { prisma } from '@/lib/db';
 import Link from 'next/link';
 import { PlusCircle, Edit, Trash2, ExternalLink, Send } from 'lucide-react';
-import { deleteBlogPost } from './actions';
+import { deleteBlogPost, publishBlogPost } from './actions';
 
 export default async function BlogAdminPage() {
-  const posts = await prisma.blogPost.findMany({
-    where: { NOT: { status: 'trashed' } },
-    orderBy: { createdAt: 'desc' },
-  });
+  let posts: any[] = [];
+  let trashedCount = 0;
 
-  const trashedCount = await prisma.blogPost.count({
-    where: { status: 'trashed' }
-  });
+  if (!process.env.VERCEL) {
+    posts = await prisma.blogPost.findMany({
+      where: { NOT: { status: 'trashed' } },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    trashedCount = await prisma.blogPost.count({
+      where: { status: 'trashed' }
+    });
+  }
 
   return (
     <div>
@@ -68,10 +73,7 @@ export default async function BlogAdminPage() {
                 <td style={{ padding: '1.5rem 2rem' }}>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     {post.status === 'draft' && (
-                      <form action={async () => {
-                        'use server';
-                        await import('./actions').then(m => m.publishBlogPost(post.id));
-                      }}>
+                      <form action={publishBlogPost.bind(null, post.id)}>
                         <button type="submit" style={{ background: 'none', border: 'none', color: '#4ade80', opacity: 0.8, cursor: 'pointer' }} title="Publish Now">
                           <Send size={18} />
                         </button>
@@ -83,10 +85,7 @@ export default async function BlogAdminPage() {
                     <Link href={`/blog/${post.slug}`} target="_blank" style={{ color: 'white', opacity: 0.8 }} title="View">
                       <ExternalLink size={20} />
                     </Link>
-                    <form action={async () => {
-                      'use server';
-                      await import('./actions').then(m => m.deleteBlogPost(post.id));
-                    }}>
+                    <form action={deleteBlogPost.bind(null, post.id)}>
                       <button type="submit" style={{ background: 'none', border: 'none', color: '#ff4444', opacity: 0.8, cursor: 'pointer' }} title="Delete">
                         <Trash2 size={20} />
                       </button>

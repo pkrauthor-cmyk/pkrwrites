@@ -4,10 +4,13 @@ import { RefreshCcw, Trash2, ArrowLeft, AlertCircle } from 'lucide-react';
 import { EmptyTrashButton, RestoreButton, PermanentDeleteButton } from './_components/TrashActions';
 
 export default async function TrashPage() {
-  const trashedPosts = await prisma.blogPost.findMany({
-    where: { status: 'trashed' },
-    orderBy: { updatedAt: 'desc' },
-  });
+  let trashedPosts: any[] = [];
+  if (!process.env.VERCEL) {
+    trashedPosts = await prisma.blogPost.findMany({
+      where: { status: 'trashed' },
+      orderBy: { updatedAt: 'desc' },
+    });
+  }
 
   return (
     <div>

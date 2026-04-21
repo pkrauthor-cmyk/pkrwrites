@@ -5,15 +5,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://pkrwrites.com';
 
   // Fetch all published blog posts
-  const posts = await prisma.blogPost.findMany({
-    where: { status: 'published' },
-    select: { slug: true, updatedAt: true },
-  });
+  let posts: any[] = [];
+  let pages: any[] = [];
 
-  // Fetch all static pages
-  const pages = await prisma.page.findMany({
-    select: { slug: true, updatedAt: true },
-  });
+  if (!process.env.VERCEL) {
+    posts = await prisma.blogPost.findMany({
+      where: { status: 'published' },
+      select: { slug: true, updatedAt: true },
+    });
+
+    // Fetch all static pages
+    pages = await prisma.page.findMany({
+      select: { slug: true, updatedAt: true },
+    });
+  }
 
   const postUrls = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,

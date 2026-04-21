@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Book {
+  id          String    @id @default(cuid())
+  asin        String    @unique
+  title       String
+  author      String
+  coverUrl    String?
+  amznLink    String?
+  description String?
+  price       String?
+  publishedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+  isFeatured  Boolean   @default(false)
+}
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  content     String
+  excerpt     String?
+  metaTitle   String?
+  metaDesc    String?
+  status      String    @default("draft")
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  category    String?
+  tags        String?
+  relatedBookAsin String?
+  isCustomHtml    Boolean   @default(false)
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
+
+model Page {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  content   String
+  updatedAt DateTime @updatedAt
+}

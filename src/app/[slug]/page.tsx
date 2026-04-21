@@ -5,22 +5,14 @@ import { notFound } from 'next/navigation';
 
 import { Metadata } from 'next';
 
-export async function generateStaticParams() {
-  const pages = await prisma.page.findMany({
-    select: { slug: true },
-  });
-
-  return pages.map((page) => ({
-    slug: page.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const { slug } = await params;
   const page = await prisma.page.findUnique({ where: { slug } });
-  
+
   if (!page) return { title: 'Page Not Found' };
-  
+
   return {
     title: `${page.title} | PKR Writes`,
   };
@@ -28,7 +20,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function DynamicPage({ params }: { params: { slug: string } }) {
   const { slug } = await params;
-  
+
   const page = await prisma.page.findUnique({
     where: { slug }
   });
@@ -64,9 +56,9 @@ export default async function DynamicPage({ params }: { params: { slug: string }
           </div>
 
           <div className="fade-in" style={{ fontSize: '1.05rem', lineHeight: '2', color: 'var(--text-muted)', animationDelay: '0.2s' }}>
-            <div 
-              className="page-dynamic-content author-style" 
-              dangerouslySetInnerHTML={{ __html: page.content }} 
+            <div
+              className="page-dynamic-content author-style"
+              dangerouslySetInnerHTML={{ __html: page.content }}
             />
           </div>
         </div>

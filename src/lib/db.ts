@@ -1,33 +1,32 @@
 import { PrismaClient } from '../generated/prisma';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
 import path from 'path';
-import 'dotenv/config';
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient }
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
-// Support both .env and .env.local via Next.js logic
-const DATABASE_URL = process.env.DATABASE_URL || "file:./dev.db";
+let prisma: PrismaClient;
 
-// Robust path extraction
-const cleanUrl = DATABASE_URL.replace(/^["']|["']$/g, '').replace('file:', '').trim();
-const absolutePath = path.isAbsolute(cleanUrl) 
-  ? cleanUrl 
-  : path.resolve(process.cwd(), cleanUrl);
+if (process.env.VERCEL) {
+  // 🚀 Vercel: disable DB (temporary fix)
+  prisma = {} as PrismaClient;
+} else {
+  // 💻 Local: use SQLite
+  const dbPath = path.join(process.cwd(), 'dev.db');
 
-console.log('🔌 Initializing Prisma with factory for:', absolutePath);
+  const adapter = new PrismaBetterSqlite3({
+    url: `file:${dbPath}`,
+  });
 
-/**
- * In Prisma 7, when using driver adapters, the client can be initialized 
- * with a factory that handles the connection.
- */
-const factory = new PrismaBetterSqlite3({ url: absolutePath });
+  prisma =
+    globalForPrisma.prisma ??
+    new PrismaClient({
+      adapter,
+      log: ['error'],
+    });
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    // @ts-ignore - Prisma 7 type definitions for adapters are still evolving
-    adapter: factory, 
-    log: ['query', 'info', 'warn', 'error'],
-  })
+  if (process.env.NODE_ENV !== 'production') {
+    globalForPrisma.prisma = prisma;
+  }
+}
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+export { prisma };

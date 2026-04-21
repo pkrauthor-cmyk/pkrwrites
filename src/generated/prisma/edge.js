@@ -39,11 +39,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.6.0
+ * Prisma Client JS version: 7.7.0
  * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
  */
 Prisma.prismaVersion = {
-  client: "7.6.0",
+  client: "7.7.0",
   engine: "75cbdc1eb7150937890ad5465d861175c6624711"
 }
 
@@ -157,7 +157,7 @@ exports.Prisma.ModelName = {
  */
 const config = {
   "previewFeatures": [],
-  "clientVersion": "7.6.0",
+  "clientVersion": "7.7.0",
   "engineVersion": "75cbdc1eb7150937890ad5465d861175c6624711",
   "activeProvider": "sqlite",
   "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n}\n\nmodel Book {\n  id          String    @id @default(cuid())\n  asin        String    @unique\n  title       String\n  author      String\n  coverUrl    String?\n  amznLink    String?\n  description String?\n  price       String?\n  publishedAt DateTime?\n  updatedAt   DateTime  @updatedAt\n  isFeatured  Boolean   @default(false)\n}\n\nmodel BlogPost {\n  id              String    @id @default(cuid())\n  title           String\n  slug            String    @unique\n  content         String\n  excerpt         String?\n  metaTitle       String?\n  metaDesc        String?\n  status          String    @default(\"draft\")\n  publishedAt     DateTime?\n  createdAt       DateTime  @default(now())\n  updatedAt       DateTime  @updatedAt\n  category        String?\n  tags            String?\n  relatedBookAsin String?\n  isCustomHtml    Boolean   @default(false)\n}\n\nmodel Setting {\n  id    String @id @default(cuid())\n  key   String @unique\n  value String\n}\n\nmodel Page {\n  id        String   @id @default(cuid())\n  title     String\n  slug      String   @unique\n  content   String\n  updatedAt DateTime @updatedAt\n}\n"

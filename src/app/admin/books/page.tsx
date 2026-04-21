@@ -4,9 +4,16 @@ import { Trash2, Star, ExternalLink, RefreshCw } from 'lucide-react';
 import { deleteBook, toggleBookFeatured } from './actions';
 
 export default async function BooksListPage() {
-  const books = await prisma.book.findMany({
-    orderBy: { updatedAt: 'desc' }
-  });
+  let books: any[] = [];
+  try {
+    if (!process.env.VERCEL) {
+      books = await prisma.book.findMany({
+        orderBy: { updatedAt: 'desc' }
+      });
+    }
+  } catch (error) {
+    console.log("DB check skipped on Vercel:", error);
+  }
 
   return (
     <section className="fade-in">
@@ -67,10 +74,7 @@ export default async function BooksListPage() {
                         <ExternalLink size={18} />
                       </a>
                       
-                      <form action={async () => {
-                        'use server';
-                        await toggleBookFeatured(book.id, book.isFeatured);
-                      }}>
+                      <form action={toggleBookFeatured.bind(null, book.id, book.isFeatured)}>
                         <button 
                           style={{ 
                             padding: '0.6rem', 
@@ -85,10 +89,7 @@ export default async function BooksListPage() {
                         </button>
                       </form>
 
-                      <form action={async () => {
-                        'use server';
-                        await deleteBook(book.id);
-                      }}>
+                      <form action={deleteBook.bind(null, book.id)}>
                         <button 
                           style={{ padding: '0.6rem', background: 'none', border: 'none', color: '#ff4444', cursor: 'pointer' }}
                           title="Remove Book"

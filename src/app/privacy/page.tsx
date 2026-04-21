@@ -8,9 +8,13 @@ export const metadata = {
 };
 
 export default async function PrivacyPolicy() {
-  const page = await prisma.page.findUnique({
-    where: { slug: 'privacy' }
-  });
+  let page: any = null;
+
+  if (!process.env.VERCEL) {
+    page = await prisma.page.findUnique({
+      where: { slug: 'privacy' }
+    });
+  }
 
   return (
     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>

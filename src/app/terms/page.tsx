@@ -8,9 +8,13 @@ export const metadata = {
 };
 
 export default async function TermsOfService() {
-  const page = await prisma.page.findUnique({
-    where: { slug: 'terms' }
-  });
+  let page: any = null;
+
+  if (!process.env.VERCEL) {
+    page = await prisma.page.findUnique({
+      where: { slug: 'terms' }
+    });
+  }
 
   return (
     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>

@@ -10,14 +10,12 @@ export default async function BlogPage() {
   let posts: any[] = [];
 
   try {
-    // ❌ Skip DB on Vercel
-    if (!process.env.VERCEL) {
-      posts = await prisma.blogPost.findMany({
-        orderBy: { publishedAt: 'desc' },
-      });
-    }
+    // ✅ ALWAYS fetch from DB (remove Vercel restriction)
+    posts = await prisma.blog.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
   } catch (e) {
-    console.log("DB disabled on Vercel");
+    console.log("DB error:", e);
   }
 
   return (
@@ -29,7 +27,7 @@ export default async function BlogPage() {
           <h1 style={{ marginBottom: '2rem' }}>Blog</h1>
 
           {posts.length === 0 ? (
-            <p>Content not available in production yet.</p>
+            <p>No blog posts found.</p>
           ) : (
             posts.map((post) => (
               <div key={post.id} style={{ marginBottom: '2rem' }}>

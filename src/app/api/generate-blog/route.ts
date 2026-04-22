@@ -6,13 +6,20 @@ export async function POST(req: Request) {
   try {
     const { keyword } = await req.json();
 
-    // 🔥 Step 1: Generate blog
+    // 🔥 Generate blog
     const result = await generateBlogPost(keyword);
 
-    // ✅ FIX: access correct structure
-    const blog = result.post;
+    const blog = result?.post;
 
-    // 🔥 Step 2: Save to DB
+    // ✅ SAFETY CHECK (FIXES ERROR)
+    if (!blog) {
+      return NextResponse.json(
+        { success: false, error: 'Blog generation failed' },
+        { status: 500 }
+      );
+    }
+
+    // 🔥 Save to DB
     const savedPost = await prisma.blogPost.create({
       data: {
         title: blog.title,
@@ -37,12 +44,19 @@ export async function POST(req: Request) {
   }
 }
 
-// Optional GET (test)
+// Optional GET
 export async function GET() {
   try {
     const result = await generateBlogPost();
 
-    const blog = result.post;
+    const blog = result?.post;
+
+    if (!blog) {
+      return NextResponse.json(
+        { success: false, error: 'Blog generation failed' },
+        { status: 500 }
+      );
+    }
 
     const savedPost = await prisma.blogPost.create({
       data: {

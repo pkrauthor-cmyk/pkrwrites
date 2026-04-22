@@ -9,13 +9,16 @@ export async function POST(req: Request) {
     // 🔥 Step 1: Generate blog
     const result = await generateBlogPost(keyword);
 
-    // 🔥 Step 2: Save to DB (VERY IMPORTANT)
+    // ✅ FIX: access correct structure
+    const blog = result.post;
+
+    // 🔥 Step 2: Save to DB
     const savedPost = await prisma.blogPost.create({
       data: {
-        title: result.title,
-        content: result.content,
-        excerpt: result.excerpt || '',
-        imageUrl: result.imageUrl || '',
+        title: blog.title,
+        content: blog.content,
+        excerpt: blog.excerpt || '',
+        imageUrl: blog.imageUrl || '',
       },
     });
 
@@ -34,17 +37,19 @@ export async function POST(req: Request) {
   }
 }
 
-// Optional GET (test route)
+// Optional GET (test)
 export async function GET() {
   try {
     const result = await generateBlogPost();
 
+    const blog = result.post;
+
     const savedPost = await prisma.blogPost.create({
       data: {
-        title: result.title,
-        content: result.content,
-        excerpt: result.excerpt || '',
-        imageUrl: result.imageUrl || '',
+        title: blog.title,
+        content: blog.content,
+        excerpt: blog.excerpt || '',
+        imageUrl: blog.imageUrl || '',
       },
     });
 

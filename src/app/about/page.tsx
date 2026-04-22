@@ -12,15 +12,13 @@ export const metadata = {
 export default async function AboutPage() {
   let page: any = null;
 
-  // ✅ SAFE DB CALL (Prevents Vercel crash)
   try {
-    if (!process.env.VERCEL) {
-      page = await prisma.page.findUnique({
-        where: { slug: 'about' }
-      });
-    }
+    page = await prisma.page.findUnique({
+      where: { slug: 'about' }
+    });
+
   } catch (error) {
-    console.log("DB disabled on Vercel:", error);
+    console.log("DB error:", error);
   }
 
   return (

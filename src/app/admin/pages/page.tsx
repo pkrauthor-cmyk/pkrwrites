@@ -6,11 +6,10 @@ import { deletePage } from './actions';
 export default async function PagesListPage() {
   let pages: any[] = [];
   try {
-    if (!process.env.VERCEL) {
-      pages = await prisma.page.findMany({
-        orderBy: { updatedAt: 'desc' }
-      });
-    }
+    pages = await prisma.page.findMany({
+      orderBy: { updatedAt: 'desc' }
+    });
+
   } catch (error) {
     console.log("DB check skipped on Vercel:", error);
   }

@@ -6,11 +6,10 @@ import { deleteBook, toggleBookFeatured } from './actions';
 export default async function BooksListPage() {
   let books: any[] = [];
   try {
-    if (!process.env.VERCEL) {
-      books = await prisma.book.findMany({
-        orderBy: { updatedAt: 'desc' }
-      });
-    }
+    books = await prisma.book.findMany({
+      orderBy: { updatedAt: 'desc' }
+    });
+
   } catch (error) {
     console.log("DB check skipped on Vercel:", error);
   }

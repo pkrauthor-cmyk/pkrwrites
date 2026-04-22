@@ -8,17 +8,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let posts: any[] = [];
   let pages: any[] = [];
 
-  if (!process.env.VERCEL) {
-    posts = await prisma.blogPost.findMany({
-      where: { status: 'published' },
-      select: { slug: true, updatedAt: true },
-    });
+  posts = await prisma.blogPost.findMany({
+    where: { status: 'published' },
+    select: { slug: true, updatedAt: true },
+  });
 
-    // Fetch all static pages
-    pages = await prisma.page.findMany({
-      select: { slug: true, updatedAt: true },
-    });
-  }
+  // Fetch all static pages
+  pages = await prisma.page.findMany({
+    select: { slug: true, updatedAt: true },
+  });
+
 
   const postUrls = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,

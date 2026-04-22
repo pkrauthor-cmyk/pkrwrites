@@ -5,12 +5,11 @@ import { EmptyTrashButton, RestoreButton, PermanentDeleteButton } from './_compo
 
 export default async function TrashPage() {
   let trashedPosts: any[] = [];
-  if (!process.env.VERCEL) {
-    trashedPosts = await prisma.blogPost.findMany({
-      where: { status: 'trashed' },
-      orderBy: { updatedAt: 'desc' },
-    });
-  }
+  trashedPosts = await prisma.blogPost.findMany({
+    where: { status: 'trashed' },
+    orderBy: { updatedAt: 'desc' },
+  });
+
 
   return (
     <div>

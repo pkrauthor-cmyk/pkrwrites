@@ -8,13 +8,11 @@ export default async function NewPostPage() {
 
   // ✅ SAFE DB CALL (prevents Vercel crash)
   try {
-    if (!process.env.VERCEL) {
-      books = await prisma.book.findMany({
-        orderBy: { title: 'asc' }
-      });
-    }
+    books = await prisma.book.findMany({
+      orderBy: { title: 'asc' }
+    });
   } catch (error) {
-    console.log("DB disabled on Vercel:", error);
+    console.log("DB error:", error);
   }
 
   return (
@@ -31,30 +29,12 @@ export default async function NewPostPage() {
         </h1>
 
         <p style={{ color: 'var(--text-muted)' }}>
-          {process.env.VERCEL
-            ? "Admin is disabled in production."
-            : "Share your latest insights with the world."}
+          Share your latest insights with the world.
         </p>
       </div>
 
-      {/* ✅ SAFE RENDER */}
-      {!process.env.VERCEL ? (
-        <BlogEditor books={books} />
-      ) : (
-        <div
-          style={{
-            padding: '3rem',
-            border: '1px solid var(--glass-border)',
-            textAlign: 'center',
-            borderRadius: '6px'
-          }}
-        >
-          <h2 style={{ marginBottom: '1rem' }}>Admin Disabled</h2>
-          <p style={{ color: 'var(--text-muted)' }}>
-            Please use localhost to create blog posts.
-          </p>
-        </div>
-      )}
+      <BlogEditor books={books} />
+
     </div>
   );
 }

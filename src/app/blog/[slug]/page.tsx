@@ -25,10 +25,6 @@ interface BlogPostPageProps {
 
 // 🚀 FIXED: Prevent Vercel build crash
 export async function generateStaticParams() {
-  if (process.env.VERCEL) {
-    return [];
-  }
-
   const posts = await prisma.blogPost.findMany({
     select: { slug: true },
   });
@@ -41,10 +37,6 @@ export async function generateStaticParams() {
 // 🚀 SAFE metadata
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   try {
-    if (process.env.VERCEL) {
-      return { title: "Blog | PKR Writes" };
-    }
-
     const post = await prisma.blogPost.findUnique({
       where: { slug: params.slug },
     });
@@ -64,24 +56,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   let post: any = null;
 
   try {
-    if (!process.env.VERCEL) {
-      post = await prisma.blogPost.findUnique({
-        where: { slug: params.slug },
-      });
-    }
+    post = await prisma.blogPost.findUnique({
+      where: { slug: params.slug },
+    });
+
   } catch (e) {
     console.log("DB disabled on Vercel");
   }
 
   if (!post) {
-    return (
-      <main style={{ padding: "5rem", textAlign: "center" }}>
-        <h1>Content unavailable</h1>
-        <p>This page is not accessible in production yet.</p>
-        <Link href="/blog">Back to Blog</Link>
-      </main>
-    );
+    return notFound();
   }
+
 
   const sanitizedContent = sanitizeBlogContent(post.content);
 

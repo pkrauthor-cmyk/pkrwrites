@@ -9,18 +9,17 @@ export default async function Home() {
   let books: any[] = [];
   let posts: any[] = [];
 
-  if (!process.env.VERCEL) {
-    books = await prisma.book.findMany({
-      take: 6,
-      orderBy: { updatedAt: 'desc' }
-    });
+  books = await prisma.book.findMany({
+    take: 6,
+    orderBy: { updatedAt: 'desc' }
+  });
 
-    posts = await prisma.blogPost.findMany({
-      take: 3,
-      where: { status: 'published' },
-      orderBy: { publishedAt: 'desc' }
-    });
-  }
+  posts = await prisma.blogPost.findMany({
+    take: 3,
+    where: { status: 'published' },
+    orderBy: { publishedAt: 'desc' }
+  });
+
 
   return (
     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>

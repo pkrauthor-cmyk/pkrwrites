@@ -15,14 +15,12 @@ export default async function BooksPage() {
   let books: any[] = [];
 
   try {
-    // ❌ Skip DB on Vercel
-    if (!process.env.VERCEL) {
-      books = await prisma.book.findMany({
-        orderBy: { updatedAt: 'desc' }
-      });
-    }
+    // ✅ ALWAYS fetch from DB (FIXED)
+    books = await prisma.book.findMany({
+      orderBy: { updatedAt: 'desc' }
+    });
   } catch (e) {
-    console.log("DB disabled on Vercel");
+    console.log("DB error:", e);
   }
 
   return (
@@ -92,7 +90,7 @@ export default async function BooksPage() {
               </h3>
 
               <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', maxWidth: '500px', lineHeight: '1.8' }}>
-                Books are not available in production yet. Please check locally.
+                No books found.
               </p>
 
               <a

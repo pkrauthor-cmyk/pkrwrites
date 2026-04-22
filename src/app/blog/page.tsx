@@ -11,7 +11,7 @@ export default async function BlogPage() {
 
   try {
     // ✅ ALWAYS fetch from DB (remove Vercel restriction)
-    posts = await prisma.blog.findMany({
+    posts = await prisma.blogPost.findMany({
       orderBy: { createdAt: 'desc' },
     });
   } catch (e) {

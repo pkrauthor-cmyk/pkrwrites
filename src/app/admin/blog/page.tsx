@@ -7,14 +7,19 @@ export default async function BlogAdminPage() {
   let posts: any[] = [];
   let trashedCount = 0;
 
-  posts = await prisma.blogPost.findMany({
-    where: { NOT: { status: 'trashed' } },
-    orderBy: { createdAt: 'desc' },
-  });
+  try {
+    posts = await prisma.blogPost.findMany({
+      where: { NOT: { status: 'trashed' } },
+      orderBy: { createdAt: 'desc' },
+    });
 
-  trashedCount = await prisma.blogPost.count({
-    where: { status: 'trashed' }
-  });
+    trashedCount = await prisma.blogPost.count({
+      where: { status: 'trashed' }
+    });
+  } catch (error) {
+    console.error("Blog list fetch error:", error);
+  }
+
 
 
   return (

@@ -23,17 +23,6 @@ interface BlogPostPageProps {
   params: { slug: string };
 }
 
-// 🚀 FIXED: Prevent Vercel build crash
-export async function generateStaticParams() {
-  const posts = await prisma.blogPost.findMany({
-    select: { slug: true },
-  });
-
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
-
 // 🚀 SAFE metadata
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   try {
@@ -47,10 +36,12 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       title: post.metaTitle || post.title,
       description: post.metaDesc || post.excerpt,
     };
-  } catch {
-    return { title: "Blog" };
+  } catch (error) {
+    console.error("Metadata generation error:", error);
+    return { title: "Blog | PKR Writes" };
   }
 }
+
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   let post: any = null;

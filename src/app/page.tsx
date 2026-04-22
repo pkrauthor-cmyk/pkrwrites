@@ -9,16 +9,21 @@ export default async function Home() {
   let books: any[] = [];
   let posts: any[] = [];
 
-  books = await prisma.book.findMany({
-    take: 6,
-    orderBy: { updatedAt: 'desc' }
-  });
+  try {
+    books = await prisma.book.findMany({
+      take: 6,
+      orderBy: { updatedAt: 'desc' }
+    });
 
-  posts = await prisma.blogPost.findMany({
-    take: 3,
-    where: { status: 'published' },
-    orderBy: { publishedAt: 'desc' }
-  });
+    posts = await prisma.blogPost.findMany({
+      take: 3,
+      where: { status: 'published' },
+      orderBy: { publishedAt: 'desc' }
+    });
+  } catch (error) {
+    console.error("Homepage DB fetch error:", error);
+  }
+
 
 
   return (

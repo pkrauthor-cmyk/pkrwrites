@@ -8,15 +8,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let posts: any[] = [];
   let pages: any[] = [];
 
-  posts = await prisma.blogPost.findMany({
-    where: { status: 'published' },
-    select: { slug: true, updatedAt: true },
-  });
+  try {
+    posts = await prisma.blogPost.findMany({
+      where: { status: 'published' },
+      select: { slug: true, updatedAt: true },
+    });
 
-  // Fetch all static pages
-  pages = await prisma.page.findMany({
-    select: { slug: true, updatedAt: true },
-  });
+    // Fetch all static pages
+    pages = await prisma.page.findMany({
+      select: { slug: true, updatedAt: true },
+    });
+  } catch (error) {
+    console.error("Sitemap DB fetch error:", error);
+  }
+
 
 
   const postUrls = posts.map((post) => ({

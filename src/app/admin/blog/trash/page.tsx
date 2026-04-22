@@ -5,10 +5,15 @@ import { EmptyTrashButton, RestoreButton, PermanentDeleteButton } from './_compo
 
 export default async function TrashPage() {
   let trashedPosts: any[] = [];
-  trashedPosts = await prisma.blogPost.findMany({
-    where: { status: 'trashed' },
-    orderBy: { updatedAt: 'desc' },
-  });
+  try {
+    trashedPosts = await prisma.blogPost.findMany({
+      where: { status: 'trashed' },
+      orderBy: { updatedAt: 'desc' },
+    });
+  } catch (error) {
+    console.error("Trash fetch error:", error);
+  }
+
 
 
   return (

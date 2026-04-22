@@ -21,16 +21,21 @@ export default async function AdminDashboardPage() {
   let pageCount = 0;
   let recentPosts: any[] = [];
 
-  [postCount, bookCount, pageCount, recentPosts] = await Promise.all([
-    prisma.blogPost.count({ where: { status: { not: 'trashed' } } }),
-    prisma.book.count(),
-    prisma.page.count(),
-    prisma.blogPost.findMany({
-      where: { status: 'published' },
-      orderBy: { publishedAt: 'desc' },
-      take: 5
-    })
-  ]);
+  try {
+    [postCount, bookCount, pageCount, recentPosts] = await Promise.all([
+      prisma.blogPost.count({ where: { status: { not: 'trashed' } } }),
+      prisma.book.count(),
+      prisma.page.count(),
+      prisma.blogPost.findMany({
+        where: { status: 'published' },
+        orderBy: { publishedAt: 'desc' },
+        take: 5
+      })
+    ]);
+  } catch (error) {
+    console.error("Dashboard stats fetch error:", error);
+  }
+
 
 
   const StatCard = ({ title, value, icon: Icon, color }: any) => (

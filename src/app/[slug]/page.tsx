@@ -8,11 +8,14 @@ import { Metadata } from 'next';
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug } = params;
   let page: any = null;
 
-  if (!process.env.VERCEL) {
+  try {
+    // ✅ ALWAYS fetch from DB (FIXED)
     page = await prisma.page.findUnique({ where: { slug } });
+  } catch (e) {
+    console.log("Metadata DB error:", e);
   }
 
   if (!page) return { title: 'Page Content | PKR Writes' };
@@ -23,16 +26,20 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function DynamicPage({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
+  const { slug } = params;
   let page: any = null;
 
-  if (!process.env.VERCEL) {
+  try {
+    // ✅ ALWAYS fetch from DB (FIXED)
     page = await prisma.page.findUnique({
       where: { slug }
     });
+  } catch (e) {
+    console.log("DB error:", e);
   }
 
-  if (!page && !process.env.VERCEL) {
+  // ✅ Proper notFound handling
+  if (!page) {
     notFound();
   }
 
@@ -57,20 +64,16 @@ export default async function DynamicPage({ params }: { params: { slug: string }
         <div className="container" style={{ maxWidth: '900px', position: 'relative', zIndex: 1 }}>
           <div className="section-title fade-in" style={{ textAlign: 'left', marginBottom: '5rem' }}>
             <h1 style={{ fontSize: '3.5rem', marginBottom: '2rem', fontWeight: 800 }}>
-              {page?.title || 'Loading Content...'}
+              {page.title}
             </h1>
             <div className="underline" style={{ margin: '0' }}></div>
           </div>
 
           <div className="fade-in" style={{ fontSize: '1.05rem', lineHeight: '2', color: 'var(--text-muted)', animationDelay: '0.2s' }}>
-            {page ? (
-              <div
-                className="page-dynamic-content author-style"
-                dangerouslySetInnerHTML={{ __html: page.content }}
-              />
-            ) : (
-              <p>Content is currently being prepared for production.</p>
-            )}
+            <div
+              className="page-dynamic-content author-style"
+              dangerouslySetInnerHTML={{ __html: page.content }}
+            />
           </div>
         </div>
       </section>

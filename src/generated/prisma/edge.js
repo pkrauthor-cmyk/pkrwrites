@@ -86,6 +86,9 @@ Prisma.NullTypes = NullTypes
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -140,6 +143,11 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
@@ -159,8 +167,8 @@ const config = {
   "previewFeatures": [],
   "clientVersion": "7.7.0",
   "engineVersion": "75cbdc1eb7150937890ad5465d861175c6624711",
-  "activeProvider": "sqlite",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n}\n\nmodel Book {\n  id          String    @id @default(cuid())\n  asin        String    @unique\n  title       String\n  author      String\n  coverUrl    String?\n  amznLink    String?\n  description String?\n  price       String?\n  publishedAt DateTime?\n  updatedAt   DateTime  @updatedAt\n  isFeatured  Boolean   @default(false)\n}\n\nmodel BlogPost {\n  id              String    @id @default(cuid())\n  title           String\n  slug            String    @unique\n  content         String\n  excerpt         String?\n  metaTitle       String?\n  metaDesc        String?\n  status          String    @default(\"draft\")\n  publishedAt     DateTime?\n  createdAt       DateTime  @default(now())\n  updatedAt       DateTime  @updatedAt\n  category        String?\n  tags            String?\n  relatedBookAsin String?\n  isCustomHtml    Boolean   @default(false)\n}\n\nmodel Setting {\n  id    String @id @default(cuid())\n  key   String @unique\n  value String\n}\n\nmodel Page {\n  id        String   @id @default(cuid())\n  title     String\n  slug      String   @unique\n  content   String\n  updatedAt DateTime @updatedAt\n}\n"
+  "activeProvider": "postgresql",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Book {\n  id          String    @id @default(cuid())\n  asin        String    @unique\n  title       String\n  author      String\n  coverUrl    String?\n  amznLink    String?\n  description String?\n  price       String?\n  publishedAt DateTime?\n  updatedAt   DateTime  @updatedAt\n  isFeatured  Boolean   @default(false)\n}\n\nmodel BlogPost {\n  id              String    @id @default(cuid())\n  title           String\n  slug            String    @unique\n  content         String\n  excerpt         String?\n  metaTitle       String?\n  metaDesc        String?\n  status          String    @default(\"draft\")\n  publishedAt     DateTime?\n  createdAt       DateTime  @default(now())\n  updatedAt       DateTime  @updatedAt\n  category        String?\n  tags            String?\n  relatedBookAsin String?\n  isCustomHtml    Boolean   @default(false)\n}\n\nmodel Setting {\n  id    String @id @default(cuid())\n  key   String @unique\n  value String\n}\n\nmodel Page {\n  id        String   @id @default(cuid())\n  title     String\n  slug      String   @unique\n  content   String\n  updatedAt DateTime @updatedAt\n}\n"
 }
 
 config.runtimeDataModel = JSON.parse("{\"models\":{\"Book\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"asin\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"author\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"coverUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"amznLink\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"publishedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"isFeatured\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null},\"BlogPost\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"excerpt\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"metaTitle\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"metaDesc\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"publishedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tags\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"relatedBookAsin\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isCustomHtml\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null},\"Setting\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"key\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"value\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Page\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")

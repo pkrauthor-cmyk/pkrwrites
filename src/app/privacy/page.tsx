@@ -10,9 +10,13 @@ export const metadata = {
 export default async function PrivacyPolicy() {
   let page: any = null;
 
-  page = await prisma.page.findUnique({
-    where: { slug: 'privacy' }
-  });
+  try {
+    page = await prisma.page.findUnique({
+      where: { slug: 'privacy' }
+    });
+  } catch (error) {
+    console.error("Privacy page DB fetch error:", error);
+  }
 
 
   return (

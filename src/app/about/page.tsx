@@ -16,10 +16,10 @@ export default async function AboutPage() {
     page = await prisma.page.findUnique({
       where: { slug: 'about' }
     });
-
   } catch (error) {
-    console.log("DB error:", error);
+    console.error("About page DB fetch error:", error);
   }
+
 
   return (
     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>

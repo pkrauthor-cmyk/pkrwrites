@@ -10,9 +10,13 @@ export const metadata = {
 export default async function TermsOfService() {
   let page: any = null;
 
-  page = await prisma.page.findUnique({
-    where: { slug: 'terms' }
-  });
+  try {
+    page = await prisma.page.findUnique({
+      where: { slug: 'terms' }
+    });
+  } catch (error) {
+    console.error("Terms page DB fetch error:", error);
+  }
 
 
   return (

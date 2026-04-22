@@ -2,6 +2,16 @@ import { NextResponse } from 'next/server';
 import { generateBlogPost } from '@/lib/blog-generator';
 import { prisma } from '@/lib/db';
 
+// ✅ Helper function to generate slug
+function generateSlug(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
+
 export async function POST(req: Request) {
   try {
     const { keyword } = await req.json();
@@ -16,12 +26,15 @@ export async function POST(req: Request) {
       );
     }
 
+    // ✅ Generate slug (FIX)
+    const slug = generateSlug(blog.title);
+
     const savedPost = await prisma.blogPost.create({
       data: {
         title: blog.title,
+        slug: slug, // ✅ REQUIRED FIELD FIXED
         content: blog.content,
         excerpt: blog.excerpt || '',
-        // ❌ REMOVED imageUrl
       },
     });
 
@@ -52,9 +65,12 @@ export async function GET() {
       );
     }
 
+    const slug = generateSlug(blog.title);
+
     const savedPost = await prisma.blogPost.create({
       data: {
         title: blog.title,
+        slug: slug,
         content: blog.content,
         excerpt: blog.excerpt || '',
       },

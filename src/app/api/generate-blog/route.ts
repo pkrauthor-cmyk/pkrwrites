@@ -6,12 +6,9 @@ export async function POST(req: Request) {
   try {
     const { keyword } = await req.json();
 
-    // 🔥 Generate blog
     const result = await generateBlogPost(keyword);
-
     const blog = result?.post;
 
-    // ✅ SAFETY CHECK (FIXES ERROR)
     if (!blog) {
       return NextResponse.json(
         { success: false, error: 'Blog generation failed' },
@@ -19,13 +16,12 @@ export async function POST(req: Request) {
       );
     }
 
-    // 🔥 Save to DB
     const savedPost = await prisma.blogPost.create({
       data: {
         title: blog.title,
         content: blog.content,
         excerpt: blog.excerpt || '',
-        imageUrl: blog.imageUrl || '',
+        // ❌ REMOVED imageUrl
       },
     });
 
@@ -44,11 +40,9 @@ export async function POST(req: Request) {
   }
 }
 
-// Optional GET
 export async function GET() {
   try {
     const result = await generateBlogPost();
-
     const blog = result?.post;
 
     if (!blog) {
@@ -63,7 +57,6 @@ export async function GET() {
         title: blog.title,
         content: blog.content,
         excerpt: blog.excerpt || '',
-        imageUrl: blog.imageUrl || '',
       },
     });
 

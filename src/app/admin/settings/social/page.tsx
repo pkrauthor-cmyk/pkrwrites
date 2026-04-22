@@ -50,15 +50,20 @@ export default function SocialSettingsPage() {
         const res = await fetch('/api/settings/social');
         if (res.ok) {
           const linksData = await res.json();
-          setSocialLinks(linksData.links || []);
+          // Use defaults if links is empty
+          if (!linksData.links || linksData.links.length === 0) {
+            setSocialLinks([
+              { name: 'Amazon Store', href: 'https://www.amazon.com/author/pk_r', icon: 'ShoppingBag', visible: true },
+              { name: 'Twitter / X', href: '#', icon: 'Share2', visible: true },
+              { name: 'LinkedIn', href: '#', icon: 'Briefcase', visible: true },
+            ]);
+          } else {
+            setSocialLinks(linksData.links);
+          }
         } else {
-          // Default links if none exist
-          setSocialLinks([
-            { name: 'Amazon Store', href: 'https://www.amazon.com/author/pk_r', icon: 'ShoppingBag', visible: true },
-            { name: 'Twitter / X', href: '#', icon: 'Share2', visible: true },
-            { name: 'LinkedIn', href: '#', icon: 'Briefcase', visible: true },
-          ]);
+          throw new Error('Failed to fetch');
         }
+
       } catch (e) {
         console.error('Failed to load social links');
       } finally {

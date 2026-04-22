@@ -20,18 +20,21 @@ export default function MenuSettingsPage() {
       try {
         const res = await fetch('/api/settings/menus');
         const data = await res.json();
-        setHeaderMenu(data.header || [
+        
+        setHeaderMenu(data.header && data.header.length > 0 ? data.header : [
           { name: 'BOOKS', href: '/books' },
           { name: 'BLOG', href: '/blog' },
           { name: 'ABOUT', href: '/about' },
           { name: 'CONTACT', href: '/contact' },
         ]);
-        setFooterMenu(data.footer || [
+        
+        setFooterMenu(data.footer && data.footer.length > 0 ? data.footer : [
           { name: 'Our Books', href: '/books' },
           { name: 'Insights Blog', href: '/blog' },
           { name: 'About the Author', href: '/about' },
           { name: 'Contact', href: '/contact' },
         ]);
+
       } catch (e) {
         console.error('Failed to load menus');
       } finally {

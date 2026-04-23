@@ -137,13 +137,15 @@ export default function AboutStyles() {
           min-width: 0 !important;
           flex-shrink: 1 !important;
           overflow-wrap: break-word !important;
-          word-wrap: break-word !important;
           word-break: normal !important;
           white-space: normal !important;
           box-sizing: border-box !important;
+          hyphens: none !important;
+          font-size: 1rem !important;
+          line-height: 1.7 !important;
         }
         .about-main-title {
-          font-size: clamp(1.8rem, 8vw, 2.4rem);
+          font-size: clamp(1.8rem, 8vw, 2.2rem);
           margin-bottom: 1.5rem;
           word-break: normal;
           overflow-wrap: break-word;

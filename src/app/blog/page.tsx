@@ -30,7 +30,7 @@ export default async function BlogPage() {
     const matchedBook = books.find(b => 
       tags.includes(b.asin) || 
       postTitle.includes(b.title.toLowerCase()) ||
-      b.title.split(' ').some(word => word.length > 4 && postTitle.includes(word.toLowerCase()))
+      b.title.split(' ').some((word: string) => word.length > 4 && postTitle.includes(word.toLowerCase()))
     );
 
     return { ...post, book: matchedBook };

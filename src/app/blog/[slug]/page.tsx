@@ -70,7 +70,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         const books = await prisma.book.findMany();
         relatedBook = books.find(b => 
           postTitle.includes(b.title.toLowerCase()) || 
-          b.title.split(' ').some(word => word.length > 4 && postTitle.includes(word.toLowerCase()))
+          b.title.split(' ').some((word: string) => word.length > 4 && postTitle.includes(word.toLowerCase()))
         );
       }
 

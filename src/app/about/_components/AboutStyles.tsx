@@ -14,7 +14,7 @@ export default function AboutStyles() {
       }
 
       .editorial-bio-text {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         line-height: 2;
         color: var(--text-muted);
       }
@@ -36,7 +36,7 @@ export default function AboutStyles() {
       }
 
       .fallback-bio-content p {
-        margin-bottom: 2rem;
+        margin-bottom: 1.75rem;
       }
 
       .mission-highlight {
@@ -93,32 +93,30 @@ export default function AboutStyles() {
          MOBILE LAYOUT (≤ 900px)
       =========================== */
       @media (max-width: 900px) {
-        /* Stack the grid into a single column */
+
+        /* Single-column stacked layout */
         .about-grid {
           display: flex !important;
           flex-direction: column !important;
           gap: 3rem !important;
           width: 100% !important;
           max-width: 100% !important;
-          overflow: hidden !important;
         }
 
         .portrait-container {
+          max-width: 280px !important;
           width: 100% !important;
-          max-width: 300px !important;
           margin: 0 auto !important;
         }
 
-        /* Right-side bio content */
+        /* Bio area must be full width */
         .bio-content-area {
           width: 100% !important;
           max-width: 100% !important;
-          overflow: hidden !important;
-          text-align: center !important;
-          padding: 0 !important;
+          min-width: 0 !important;
+          box-sizing: border-box !important;
         }
 
-        /* Section title alignment */
         .section-title-mobile {
           display: flex;
           flex-direction: column;
@@ -133,40 +131,43 @@ export default function AboutStyles() {
 
         .about-main-title {
           font-size: clamp(1.6rem, 7vw, 2.2rem) !important;
-          word-break: normal !important;
-          overflow-wrap: break-word !important;
         }
 
-        /* Database content reset for mobile */
+        /* 
+          KEY FIX: Only target block-level elements.
+          Do NOT apply display:block or width:100% to inline
+          elements like <em>, <strong>, <span> — that causes
+          each word to jump to its own line.
+        */
         .db-rendered-content {
           width: 100% !important;
           max-width: 100% !important;
-          overflow: hidden !important;
+          box-sizing: border-box !important;
+          overflow-wrap: break-word !important;
+          word-break: normal !important;
+          hyphens: none !important;
           font-size: 0.95rem !important;
           line-height: 1.85 !important;
-          text-align: left !important;
-          overflow-wrap: break-word !important;
-          word-break: normal !important;
-          hyphens: none !important;
         }
 
-        /* Override any inline styles from DB content */
-        .db-rendered-content * {
-          max-width: 100% !important;
-          overflow-wrap: break-word !important;
-          word-break: normal !important;
-          hyphens: none !important;
-          box-sizing: border-box !important;
-          white-space: normal !important;
-        }
-
-        /* Force inline elements to wrap naturally */
         .db-rendered-content p,
+        .db-rendered-content h1,
+        .db-rendered-content h2,
+        .db-rendered-content h3,
+        .db-rendered-content h4,
+        .db-rendered-content ul,
+        .db-rendered-content ol,
         .db-rendered-content li,
-        .db-rendered-content span {
-          display: block !important;
+        .db-rendered-content blockquote,
+        .db-rendered-content div,
+        .db-rendered-content section {
+          max-width: 100% !important;
           width: 100% !important;
-          text-align: left !important;
+          box-sizing: border-box !important;
+          overflow-wrap: break-word !important;
+          word-break: normal !important;
+          hyphens: none !important;
+          white-space: normal !important;
         }
 
         .mission-highlight {

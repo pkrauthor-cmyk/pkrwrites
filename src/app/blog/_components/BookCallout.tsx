@@ -19,26 +19,8 @@ export default function BookCallout({ book }: BookCalloutProps) {
       : `https://m.media-amazon.com/images/I/61zNjdehc1L.jpg`;
 
   return (
-    <div className="featured-book-callout" style={{
-      marginBottom: '8rem',
-      display: 'grid',
-      gridTemplateColumns: 'minmax(200px, 280px) 1fr',
-      gap: '4rem',
-      padding: '4rem',
-      background: 'rgba(212, 175, 55, 0.03)',
-      borderRadius: '20px',
-      border: '1px solid var(--glass-border)',
-      alignItems: 'center'
-    }}>
-      <div style={{
-        position: 'relative',
-        boxShadow: '0 30px 60px rgba(0,0,0,0.6)',
-        border: '1px solid rgba(212, 175, 55, 0.3)',
-        borderRadius: '8px',
-        overflow: 'hidden',
-        aspectRatio: '2/3',
-        background: 'linear-gradient(135deg, #1A1A1A 0%, #050505 100%)', // Mockup Base
-      }}>
+    <div className="featured-book-callout">
+      <div className="book-cover-container">
         {/* Layer 1: The Design Mockup (Visible while loading or if error) */}
         <div style={{
           width: '100%',
@@ -104,16 +86,15 @@ export default function BookCallout({ book }: BookCalloutProps) {
           />
         )}
       </div>
-      <div>
-        <h4 style={{ color: 'var(--primary)', letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: '0.8rem', marginBottom: '1rem' }}>Featured Book</h4>
-        <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', marginTop: 0 }}>{book.title}</h3>
-        <p style={{ color: '#AAA', marginBottom: '2.5rem', fontSize: '1rem', lineHeight: 1.6 }}>{book.description?.substring(0, 180)}...</p>
+      <div className="book-info-container">
+        <h4 className="book-subtitle">Featured Book</h4>
+        <h3 className="book-title-header">{book.title}</h3>
+        <p className="book-description">{book.description?.substring(0, 180)}...</p>
         <a 
           href={book.amznLink || '#'} 
           target="_blank" 
           rel="noopener noreferrer" 
-          className="btn btn-primary"
-          style={{ padding: '0.8rem 2rem', fontSize: '0.75rem' }}
+          className="btn btn-primary acquire-btn"
         >
           ACQUIRE THE BOOK
         </a>
@@ -121,11 +102,70 @@ export default function BookCallout({ book }: BookCalloutProps) {
 
       <style jsx>{`
         .featured-book-callout {
+          margin-bottom: 8rem;
+          display: grid;
+          grid-template-columns: minmax(200px, 280px) 1fr;
+          gap: 4rem;
+          padding: 4rem;
+          background: rgba(212, 175, 55, 0.03);
+          border-radius: 20px;
+          border: 1px solid var(--glass-border);
+          align-items: center;
           transition: all 0.5s ease;
         }
         .featured-book-callout:hover {
           background: rgba(212, 175, 55, 0.06);
           border-color: rgba(212, 175, 55, 0.2);
+        }
+        .book-cover-container {
+          position: relative;
+          box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+          border: 1px solid rgba(212, 175, 55, 0.3);
+          border-radius: 8px;
+          overflow: hidden;
+          aspect-ratio: 2/3;
+          background: linear-gradient(135deg, #1A1A1A 0%, #050505 100%);
+        }
+        .book-subtitle {
+          color: var(--primary);
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          font-size: 0.8rem;
+          margin-bottom: 1rem;
+        }
+        .book-title-header {
+          font-size: clamp(1.8rem, 4vw, 2.5rem);
+          margin-bottom: 1.5rem;
+          margin-top: 0;
+          font-family: var(--font-playfair);
+        }
+        .book-description {
+          color: #AAA;
+          margin-bottom: 2.5rem;
+          font-size: 1rem;
+          line-height: 1.6;
+        }
+        .acquire-btn {
+          padding: 0.8rem 2rem;
+          font-size: 0.75rem;
+        }
+
+        @media (max-width: 850px) {
+          .featured-book-callout {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+          }
+          .book-cover-container {
+            max-width: 240px;
+            margin: 0 auto;
+          }
+          .book-info-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
         }
       `}</style>
     </div>

@@ -46,6 +46,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   let post: any = null;
+  let relatedBook: any = null;
 
   try {
     const { slug } = await params;
@@ -53,32 +54,158 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       where: { slug },
     });
 
+    if (post) {
+      // Find a related book based on tags or category
+      const tags = post.tags?.split(',').map((t: string) => t.trim()) || [];
+      
+      // Try to find a book that matches one of the tags (like an ASIN or title keyword)
+      relatedBook = await prisma.book.findFirst({
+        where: {
+          OR: [
+            { asin: { in: tags } },
+            { title: { contains: post.title.split(':')[0], mode: 'insensitive' } },
+            { isFeatured: true } // Fallback to a featured book
+          ]
+        }
+      });
+    }
   } catch (e) {
-    console.log("DB disabled on Vercel");
+    console.error("DB error in blog post page:", e);
   }
 
   if (!post) {
     return notFound();
   }
 
-
   const sanitizedContent = sanitizeBlogContent(post.content);
 
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#050505' }}>
       <Navbar />
+      <ReadingProgress />
+      <SmartNavigationController />
+      <ScrollReveal />
+      <ScriptExecutor />
 
-      <article style={{ paddingTop: '120px', paddingBottom: '6rem' }}>
-        <div className="container" style={{ maxWidth: '850px' }}>
-          <h1 style={{ marginBottom: '2rem' }}>{post.title}</h1>
+      <article style={{ paddingTop: '160px', paddingBottom: '10rem' }}>
+        <div className="container" style={{ maxWidth: '900px' }}>
+          {/* Editorial Header */}
+          <header style={{ marginBottom: '5rem', textAlign: 'center' }}>
+            <div style={{ 
+              color: 'var(--primary)', 
+              fontSize: '0.9rem', 
+              letterSpacing: '0.3em', 
+              textTransform: 'uppercase', 
+              marginBottom: '1.5rem',
+              fontWeight: 600 
+            }}>
+              {post.category} • {new Date(post.publishedAt || post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </div>
+            <h1 style={{ 
+              fontSize: '4.5rem', 
+              lineHeight: '1.1', 
+              marginBottom: '2.5rem', 
+              fontFamily: 'var(--font-playfair)',
+              fontWeight: 800,
+              letterSpacing: '-0.02em'
+            }}>
+              {post.title}
+            </h1>
+            <div className="underline" style={{ width: '80px', height: '3px', background: 'var(--primary)', margin: '0 auto 3rem' }}></div>
+            <p style={{ 
+              fontSize: '1.4rem', 
+              color: 'var(--text-muted)', 
+              lineHeight: '1.6', 
+              fontStyle: 'italic',
+              maxWidth: '700px',
+              margin: '0 auto'
+            }}>
+              {post.excerpt}
+            </p>
+          </header>
 
-          <div
+          {/* Main Content Area */}
+          <div 
+            className="editorial-content author-style"
+            style={{ 
+              fontSize: '1.15rem', 
+              lineHeight: '2.1', 
+              color: 'rgba(255,255,255,0.85)',
+              marginBottom: '8rem'
+            }}
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
+
+          {/* Related Book Callout */}
+          {relatedBook && (
+            <div style={{ marginTop: '6rem', borderTop: '1px solid rgba(212, 175, 55, 0.1)', paddingTop: '6rem' }}>
+              <BookCallout book={relatedBook} />
+            </div>
+          )}
+
+          {/* Back to Blog */}
+          <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+            <Link href="/blog" className="btn btn-outline" style={{ padding: '1rem 2.5rem' }}>
+              BACK TO STORIES
+            </Link>
+          </div>
         </div>
       </article>
 
       <Footer />
+
+      <style jsx global>{`
+        .editorial-content h2 {
+          font-size: 2.2rem;
+          font-family: var(--font-playfair);
+          color: white;
+          margin: 4rem 0 2rem;
+          border-left: 4px solid var(--primary);
+          padding-left: 2rem;
+        }
+        .editorial-content h3 {
+          font-size: 1.8rem;
+          font-family: var(--font-playfair);
+          color: white;
+          margin: 3rem 0 1.5rem;
+        }
+        .editorial-content p {
+          margin-bottom: 2rem;
+        }
+        .editorial-content b, .editorial-content strong {
+          color: var(--primary);
+          font-weight: 700;
+        }
+        .editorial-content blockquote {
+          font-family: var(--font-playfair);
+          font-size: 1.8rem;
+          line-height: 1.5;
+          color: white;
+          border: none;
+          padding: 4rem;
+          margin: 5rem 0;
+          text-align: center;
+          background: rgba(255,255,255,0.02);
+          position: relative;
+        }
+        .editorial-content blockquote::before {
+          content: '“';
+          position: absolute;
+          top: 1rem;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: 8rem;
+          opacity: 0.1;
+          color: var(--primary);
+        }
+        .editorial-content ul, .editorial-content ol {
+          margin: 2rem 0 3rem 2rem;
+        }
+        .editorial-content li {
+          margin-bottom: 1rem;
+          color: rgba(255,255,255,0.7);
+        }
+      `}</style>
     </main>
   );
 }

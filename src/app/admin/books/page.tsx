@@ -7,13 +7,15 @@ export const dynamic = 'force-dynamic';
 
 export default async function BooksListPage() {
   let books: any[] = [];
+  let fetchError: string | null = null;
+
   try {
     books = await prisma.book.findMany({
       orderBy: { updatedAt: 'desc' }
     });
-
-  } catch (error) {
-    console.log("DB check skipped on Vercel:", error);
+  } catch (error: any) {
+    console.error("Failed to fetch books:", error);
+    fetchError = error.message || "Unknown database error";
   }
 
   return (
@@ -40,7 +42,14 @@ export default async function BooksListPage() {
             </tr>
           </thead>
           <tbody>
-            {books.length === 0 ? (
+            {fetchError ? (
+              <tr>
+                <td colSpan={4} style={{ padding: '4rem', textAlign: 'center', color: '#ff4444' }}>
+                  <div style={{ marginBottom: '1rem', fontWeight: 'bold' }}>Database Error:</div>
+                  <div style={{ opacity: 0.8, fontSize: '0.9rem' }}>{fetchError}</div>
+                </td>
+              </tr>
+            ) : books.length === 0 ? (
               <tr>
                 <td colSpan={4} style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>
                   No books found. Run a sync to fetch them from Amazon.

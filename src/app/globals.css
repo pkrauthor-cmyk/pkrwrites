@@ -316,3 +316,97 @@ h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); }
     font-size: 2.5rem !important;
   }
 }
+
+/* ===========================
+   ABOUT PAGE RESPONSIVE LAYOUT
+   Added here because styled-jsx
+   is unreliable in Server Components.
+=========================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 6rem;
+  align-items: start;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .portrait-container {
+    max-width: 260px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .bio-content-area {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .editorial-bio-text {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .db-rendered-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 1rem !important;
+    line-height: 1.85 !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+    hyphens: none !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .db-rendered-content p,
+  .db-rendered-content h1,
+  .db-rendered-content h2,
+  .db-rendered-content h3,
+  .db-rendered-content h4,
+  .db-rendered-content li,
+  .db-rendered-content ul,
+  .db-rendered-content ol,
+  .db-rendered-content div,
+  .db-rendered-content blockquote {
+    max-width: 100% !important;
+    width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+    hyphens: none !important;
+    white-space: normal !important;
+    box-sizing: border-box !important;
+  }
+
+  .mission-highlight {
+    border-left: none !important;
+    border-top: 1px solid rgba(197, 160, 89, 0.25) !important;
+    padding-left: 0 !important;
+    padding-top: 2rem !important;
+    margin-top: 2rem !important;
+    text-align: center !important;
+  }
+
+  .about-main-title {
+    font-size: clamp(1.6rem, 7vw, 2.2rem) !important;
+  }
+
+  .section-title-mobile {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+}

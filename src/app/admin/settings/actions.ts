@@ -4,13 +4,22 @@ import { prisma } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 
 export async function updateSetting(key: string, value: string) {
-  await prisma.setting.upsert({
-    where: { key },
-    update: { value },
-    create: { key, value },
-  });
+  try {
+    await prisma.setting.upsert({
+      where: { key },
+      update: { value },
+      create: { key, value },
+    });
 
-  revalidatePath('/', 'layout');
+    revalidatePath('/', 'layout');
+    return { success: true };
+  } catch (error: any) {
+    console.error(`Failed to update setting [${key}]:`, error);
+    return { 
+      success: false, 
+      error: error.message || 'Failed to save changes' 
+    };
+  }
 }
 
 export async function getSetting(key: string, defaultValue: string = '') {

@@ -76,11 +76,16 @@ export default function SocialSettingsPage() {
   async function handleSave() {
     setSaving(true);
     try {
-      await updateSetting('social_links', JSON.stringify(socialLinks));
-      alert('Social links saved successfully!');
-    } catch (error) {
+      const result = await updateSetting('social_links', JSON.stringify(socialLinks));
+      
+      if (result && result.success) {
+        alert('Social links saved successfully!');
+      } else {
+        throw new Error(result?.error || 'Failed to save changes');
+      }
+    } catch (error: any) {
       console.error('Failed to save social links:', error);
-      alert('Failed to save changes. Please check if the server is running correctly.');
+      alert(`Error: ${error.message}`);
     } finally {
       setSaving(false);
     }

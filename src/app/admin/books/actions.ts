@@ -2,6 +2,17 @@
 
 import { prisma } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
+import { syncBooks as runAmazonSync } from '@/lib/scraper';
+
+export async function syncBooks() {
+  const result = await runAmazonSync();
+  
+  revalidatePath('/admin/books');
+  revalidatePath('/books');
+  revalidatePath('/');
+  
+  return result;
+}
 
 export async function deleteBook(id: string) {
   await prisma.book.delete({

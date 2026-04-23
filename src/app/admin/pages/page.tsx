@@ -3,6 +3,8 @@ import { prisma } from '@/lib/db';
 import { Plus, Edit2, Trash2, ExternalLink, Layout } from 'lucide-react';
 import { deletePage } from './actions';
 
+export const dynamic = 'force-dynamic';
+
 export default async function PagesListPage() {
   let pages: any[] = [];
   try {

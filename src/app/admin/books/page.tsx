@@ -3,6 +3,8 @@ import { prisma } from '@/lib/db';
 import { Trash2, Star, ExternalLink, RefreshCw } from 'lucide-react';
 import { deleteBook, toggleBookFeatured } from './actions';
 
+export const dynamic = 'force-dynamic';
+
 export default async function BooksListPage() {
   let books: any[] = [];
   try {

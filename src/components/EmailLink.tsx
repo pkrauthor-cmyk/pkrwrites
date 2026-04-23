@@ -5,7 +5,7 @@ export default function EmailLink({ email }: { email: string }) {
     <a 
       href={`mailto:${email}`} 
       style={{ 
-        fontSize: '2rem', 
+        fontSize: 'clamp(1.2rem, 5vw, 2.2rem)', 
         color: 'var(--primary)', 
         fontWeight: 700,
         fontFamily: 'var(--font-playfair)',
@@ -13,7 +13,9 @@ export default function EmailLink({ email }: { email: string }) {
         display: 'block',
         margin: '2rem 0',
         letterSpacing: '0.02em',
-        transition: 'transform 0.3s ease'
+        transition: 'transform 0.3s ease',
+        wordBreak: 'break-word',
+        overflowWrap: 'break-word'
       }}
       onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
       onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}

@@ -21,14 +21,16 @@ export default function ContactPage() {
 
       <section
         style={{
-          paddingTop: '160px',
-          paddingBottom: '8rem',
+          paddingTop: 'clamp(100px, 15vh, 160px)',
+          paddingBottom: 'clamp(4rem, 10vh, 8rem)',
           background: 'var(--bg-dark)',
           flexGrow: 1,
           display: 'flex',
           alignItems: 'center',
           position: 'relative',
           overflow: 'hidden',
+          paddingLeft: '1.5rem',
+          paddingRight: '1.5rem'
         }}
       >
         {/* Background Decorative Element */}
@@ -176,7 +178,7 @@ export default function ContactPage() {
                 style={{
                   display: 'flex',
                   justifyContent: 'center',
-                  gap: '3rem',
+                  gap: 'clamp(1.5rem, 4vw, 3rem)',
                   flexWrap: 'wrap',
                 }}
               >

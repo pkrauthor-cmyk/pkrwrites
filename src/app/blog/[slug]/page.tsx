@@ -57,19 +57,29 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     });
 
     if (post) {
-      // Find a related book based on tags or category
       const tags = post.tags?.split(',').map((t: string) => t.trim()) || [];
+      const postTitle = post.title.toLowerCase();
       
-      // Try to find a book that matches one of the tags (like an ASIN or title keyword)
+      // 1. Priority: Match by ASIN in tags
       relatedBook = await prisma.book.findFirst({
-        where: {
-          OR: [
-            { asin: { in: tags } },
-            { title: { contains: post.title.split(':')[0], mode: 'insensitive' } },
-            { isFeatured: true } // Fallback to a featured book
-          ]
-        }
+        where: { asin: { in: tags } }
       });
+
+      // 2. Secondary: Match by Title Keywords in the blog post title
+      if (!relatedBook) {
+        const books = await prisma.book.findMany();
+        relatedBook = books.find(b => 
+          postTitle.includes(b.title.toLowerCase()) || 
+          b.title.split(' ').some(word => word.length > 4 && postTitle.includes(word.toLowerCase()))
+        );
+      }
+
+      // 3. Fallback: Featured book
+      if (!relatedBook) {
+        relatedBook = await prisma.book.findFirst({
+          where: { isFeatured: true }
+        });
+      }
     }
   } catch (e) {
     console.error("DB error in blog post page:", e);

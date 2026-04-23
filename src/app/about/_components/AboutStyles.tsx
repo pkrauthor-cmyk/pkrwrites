@@ -133,11 +133,11 @@ export default function AboutStyles() {
         }
         .db-rendered-content, .db-rendered-content * {
           max-width: 100% !important;
-          width: 100% !important;
+          width: auto !important;
           min-width: 0 !important;
-          overflow-wrap: break-word !important;
-          word-wrap: break-word !important;
-          word-break: normal !important;
+          overflow-wrap: normal !important;
+          word-wrap: normal !important;
+          word-break: keep-all !important;
           white-space: normal !important;
           box-sizing: border-box !important;
           hyphens: none !important;
@@ -145,12 +145,14 @@ export default function AboutStyles() {
           line-height: 1.8 !important;
           letter-spacing: normal !important;
           display: block !important;
+          padding-left: 5px !important;
+          padding-right: 5px !important;
         }
         .about-main-title {
           font-size: clamp(1.8rem, 8vw, 2.2rem);
           margin-bottom: 1.5rem;
-          word-break: normal;
-          overflow-wrap: break-word;
+          word-break: keep-all;
+          overflow-wrap: normal;
           max-width: 100% !important;
           width: 100% !important;
         }

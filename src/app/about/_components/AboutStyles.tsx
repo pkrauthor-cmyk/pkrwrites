@@ -109,7 +109,6 @@ export default function AboutStyles() {
           margin: 0 auto !important;
         }
 
-        /* Bio area must be full width */
         .bio-content-area {
           width: 100% !important;
           max-width: 100% !important;
@@ -131,25 +130,28 @@ export default function AboutStyles() {
 
         .about-main-title {
           font-size: clamp(1.6rem, 7vw, 2.2rem) !important;
+          word-break: normal !important;
+          hyphens: none !important;
         }
 
-        /* 
-          KEY FIX: Only target block-level elements.
-          Do NOT apply display:block or width:100% to inline
-          elements like <em>, <strong>, <span> — that causes
-          each word to jump to its own line.
-        */
+        /*
+         * CRITICAL: Use overflow-wrap: normal (not break-word).
+         * break-word causes character-level splits when the container
+         * is slightly narrower than a word. "normal" keeps words whole
+         * and wraps only at natural spaces. Overflow is hidden at parent.
+         */
         .db-rendered-content {
           width: 100% !important;
           max-width: 100% !important;
           box-sizing: border-box !important;
-          overflow-wrap: break-word !important;
+          overflow-wrap: normal !important;
           word-break: normal !important;
           hyphens: none !important;
-          font-size: 0.95rem !important;
+          font-size: 1rem !important;
           line-height: 1.85 !important;
         }
 
+        /* Only target block elements — never inline (em/strong/span) */
         .db-rendered-content p,
         .db-rendered-content h1,
         .db-rendered-content h2,
@@ -164,7 +166,7 @@ export default function AboutStyles() {
           max-width: 100% !important;
           width: 100% !important;
           box-sizing: border-box !important;
-          overflow-wrap: break-word !important;
+          overflow-wrap: normal !important;
           word-break: normal !important;
           hyphens: none !important;
           white-space: normal !important;

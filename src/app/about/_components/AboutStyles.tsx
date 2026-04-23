@@ -67,23 +67,41 @@ export default function AboutStyles() {
         font-family: var(--font-playfair);
       }
       
+      .section-title-mobile {
+        text-align: left;
+        margin-bottom: clamp(2.5rem, 8vw, 4.5rem);
+      }
+      .underline-mobile {
+        height: 2px;
+        background: var(--primary);
+        width: 80px;
+        margin-top: 1.5rem;
+      }
+      
       @media (max-width: 1024px) {
         .about-grid {
-          grid-template-columns: 1fr;
-          gap: 4rem;
+          grid-template-columns: 1fr !important;
+          gap: 3rem !important;
+          display: flex !important;
+          flex-direction: column !important;
         }
         .portrait-container {
-          max-width: 320px;
-          margin: 0 auto;
+          max-width: 280px;
+          margin: 0 auto 2rem;
+          order: 1;
         }
         .bio-content-area {
           text-align: center;
+          order: 2;
         }
-        .section-title {
+        .section-title-mobile {
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center !important;
+        }
+        .underline-mobile {
+          margin: 1.5rem auto 0;
         }
         .mission-highlight {
           border-left: none;
@@ -91,12 +109,15 @@ export default function AboutStyles() {
           padding-left: 0;
           padding-top: 3rem;
           text-align: center;
+          margin-top: 3rem;
         }
         .db-rendered-content {
           text-align: center;
+          font-size: 1.05rem;
         }
         .about-main-title {
-          font-size: clamp(2rem, 8vw, 2.8rem);
+          font-size: clamp(1.8rem, 8vw, 2.4rem);
+          margin-bottom: 1.5rem;
         }
       }
     `}</style>

@@ -52,7 +52,7 @@ export default async function AboutPage() {
         <div className="container" style={{ position: 'relative', zIndex: 1, maxWidth: '1100px' }}>
           <div className="about-grid">
             {/* LEFT IMAGE */}
-            <div className="fade-in portrait-container">
+            <div className="portrait-container">
               <div style={{
                 position: 'relative',
                 padding: 'clamp(8px, 2vw, 12px)',
@@ -75,11 +75,11 @@ export default async function AboutPage() {
               </div>
 
               <div style={{
-                marginTop: '2.5rem',
+                marginTop: '1.5rem',
                 textAlign: 'center',
-                fontSize: '0.7rem',
+                fontSize: '0.65rem',
                 color: 'var(--primary)',
-                letterSpacing: '0.4em',
+                letterSpacing: '0.3em',
                 fontWeight: 800,
                 opacity: 0.8,
                 textTransform: 'uppercase'
@@ -89,8 +89,8 @@ export default async function AboutPage() {
             </div>
 
             {/* RIGHT CONTENT */}
-            <div className="fade-in bio-content-area" style={{ animationDelay: '0.3s' }}>
-              <div className="section-title" style={{ textAlign: 'left', marginBottom: 'clamp(2.5rem, 8vw, 4.5rem)' }}>
+            <div className="bio-content-area">
+              <div className="section-title-mobile">
                 <h3 className="biography-label">
                   Biography
                 </h3>
@@ -99,7 +99,7 @@ export default async function AboutPage() {
                   {page?.title || 'Architect of stories, voyaging through the cosmic infinite.'}
                 </h1>
 
-                <div className="underline"></div>
+                <div className="underline-mobile"></div>
               </div>
 
               <div className="editorial-bio-text">
@@ -116,10 +116,6 @@ export default async function AboutPage() {
                     
                     <p>
                       From the bioluminescent jungles of far-flung galaxies to the intimate corridors of memory in historical fiction, PKR’s work is characterized by cinematic detail, emotional resonance, and intellectual depth.
-                    </p>
-
-                    <p>
-                      When not architecting new universes, PKR can be found studying the latest advancements in quantum physics or lost in the timeless beauty of classical literature. This bridge between the future and the past is the heartbeat of every PKR novel.
                     </p>
                   </div>
                 )}

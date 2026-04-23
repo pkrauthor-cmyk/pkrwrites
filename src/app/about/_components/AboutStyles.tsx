@@ -52,13 +52,28 @@ export default function AboutStyles() {
         font-style: italic;
       }
       
+      .db-rendered-content {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 1.15rem;
+        line-height: 2;
+      }
+      .db-rendered-content p {
+        margin-bottom: 2rem;
+      }
+      .db-rendered-content h2, .db-rendered-content h3 {
+        color: white;
+        margin-top: 3rem;
+        margin-bottom: 1.5rem;
+        font-family: var(--font-playfair);
+      }
+      
       @media (max-width: 1024px) {
         .about-grid {
           grid-template-columns: 1fr;
           gap: 4rem;
         }
         .portrait-container {
-          max-width: 420px;
+          max-width: 320px;
           margin: 0 auto;
         }
         .bio-content-area {
@@ -77,8 +92,11 @@ export default function AboutStyles() {
           padding-top: 3rem;
           text-align: center;
         }
+        .db-rendered-content {
+          text-align: center;
+        }
         .about-main-title {
-          font-size: clamp(2rem, 8vw, 3rem);
+          font-size: clamp(2rem, 8vw, 2.8rem);
         }
       }
     `}</style>

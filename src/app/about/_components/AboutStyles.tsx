@@ -114,7 +114,7 @@ export default function AboutStyles() {
         .db-rendered-content {
           text-align: center;
           font-size: 1.05rem;
-          word-break: break-word;
+          word-break: normal;
           overflow-wrap: break-word;
           width: 100%;
           max-width: 100%;
@@ -126,14 +126,16 @@ export default function AboutStyles() {
           margin-right: 0 !important;
           padding-left: 0 !important;
           padding-right: 0 !important;
-          word-wrap: break-word !important;
           overflow-wrap: break-word !important;
+          word-wrap: break-word !important;
+          word-break: normal !important;
           white-space: normal !important;
         }
         .about-main-title {
           font-size: clamp(1.8rem, 8vw, 2.4rem);
           margin-bottom: 1.5rem;
-          word-break: break-word;
+          word-break: normal;
+          overflow-wrap: break-word;
         }
       }
     `}</style>

@@ -14,6 +14,40 @@ export async function syncBooks() {
   return result;
 }
 
+export async function saveBook(data: any) {
+  try {
+    const { id, ...bookData } = data;
+    
+    if (id) {
+      // Update
+      await prisma.book.update({
+        where: { id },
+        data: {
+          ...bookData,
+          updatedAt: new Date()
+        },
+      });
+    } else {
+      // Create
+      await prisma.book.create({
+        data: {
+          ...bookData,
+          updatedAt: new Date()
+        },
+      });
+    }
+
+    revalidatePath('/admin/books');
+    revalidatePath('/books');
+    revalidatePath('/');
+    
+    return { success: true };
+  } catch (error: any) {
+    console.error('Save Book Error:', error);
+    return { success: false, error: error.message || 'Failed to save book' };
+  }
+}
+
 export async function deleteBook(id: string) {
   await prisma.book.delete({
     where: { id },

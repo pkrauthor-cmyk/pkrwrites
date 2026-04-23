@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
-import { Trash2, Star, ExternalLink, RefreshCw } from 'lucide-react';
+import { Trash2, Star, ExternalLink, RefreshCw, Plus, Edit2 } from 'lucide-react';
 import { deleteBook, toggleBookFeatured, syncBooks } from './actions';
 import SyncButton from './_components/SyncButton';
 
@@ -26,7 +26,13 @@ export default async function BooksListPage() {
           <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'var(--font-playfair)' }}>Books Library</h1>
           <p style={{ color: 'var(--text-muted)' }}>Manage your synchronized Amazon book catalog.</p>
         </div>
-        <SyncButton />
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <SyncButton />
+          <Link href="/admin/books/new" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Plus size={18} />
+            <span>ADD BOOK</span>
+          </Link>
+        </div>
       </div>
 
       <div className="glass-card" style={{ overflow: 'hidden' }}>
@@ -50,7 +56,7 @@ export default async function BooksListPage() {
             ) : books.length === 0 ? (
               <tr>
                 <td colSpan={4} style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-muted)' }}>
-                  No books found. Run a sync to fetch them from Amazon.
+                  No books found. Run a sync or add one manually.
                 </td>
               </tr>
             ) : (
@@ -73,6 +79,14 @@ export default async function BooksListPage() {
                   </td>
                   <td style={{ padding: '1.5rem 2rem', textAlign: 'right' }}>
                     <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+                      <Link 
+                        href={`/admin/books/edit/${book.id}`}
+                        style={{ padding: '0.6rem', color: 'var(--text-muted)' }} 
+                        title="Edit Details"
+                      >
+                        <Edit2 size={18} />
+                      </Link>
+
                       <a 
                         href={book.amznLink || '#'} 
                         target="_blank"

@@ -26,8 +26,9 @@ interface BlogPostPageProps {
 // 🚀 SAFE metadata
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   try {
+    const { slug } = await params;
     const post = await prisma.blogPost.findUnique({
-      where: { slug: params.slug },
+      where: { slug },
     });
 
     if (!post) return { title: 'Post Not Found' };
@@ -47,8 +48,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   let post: any = null;
 
   try {
+    const { slug } = await params;
     post = await prisma.blogPost.findUnique({
-      where: { slug: params.slug },
+      where: { slug },
     });
 
   } catch (e) {

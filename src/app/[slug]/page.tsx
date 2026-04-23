@@ -8,7 +8,7 @@ import { Metadata } from 'next';
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   let page: any = null;
 
   try {
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function DynamicPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+  const { slug } = await params;
   let page: any = null;
 
   try {

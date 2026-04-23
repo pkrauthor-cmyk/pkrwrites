@@ -371,6 +371,16 @@ h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); }
     overflow: hidden !important;
   }
 
+  /* Override ALL inline styles from database HTML - catches white-space:nowrap, fixed widths etc. */
+  .db-rendered-content * {
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+    hyphens: none !important;
+    box-sizing: border-box !important;
+  }
+
   .db-rendered-content p,
   .db-rendered-content h1,
   .db-rendered-content h2,

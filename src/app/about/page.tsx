@@ -109,9 +109,8 @@ export default async function AboutPage() {
                     style={{
                       width: '100%',
                       maxWidth: '100%',
-                      overflowWrap: 'break-word',
+                      overflowWrap: 'normal',
                       wordBreak: 'normal',
-                      overflow: 'hidden',
                       boxSizing: 'border-box'
                     }}
                     dangerouslySetInnerHTML={{ __html: page.content }}

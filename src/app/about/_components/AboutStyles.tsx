@@ -111,23 +111,31 @@ export default function AboutStyles() {
           text-align: center;
           margin-top: 3rem;
         }
-        .db-rendered-content {
-          text-align: center;
-          font-size: 1.05rem;
-          word-break: normal;
-          overflow-wrap: break-word;
+        .about-grid {
+          display: flex !important;
+          flex-direction: column !important;
           width: 100% !important;
           max-width: 100% !important;
-          display: block !important;
+          min-width: 0 !important;
+          overflow: hidden !important;
+          gap: 3rem !important;
         }
-        .db-rendered-content * {
+        .portrait-container {
+          max-width: 280px !important;
+          width: 100% !important;
+          margin: 0 auto 2rem !important;
+        }
+        .bio-content-area {
+          text-align: center !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+        }
+        .db-rendered-content, .db-rendered-content * {
           max-width: 100% !important;
           width: auto !important;
-          height: auto !important;
-          margin-left: 0 !important;
-          margin-right: 0 !important;
-          padding-left: 0 !important;
-          padding-right: 0 !important;
+          min-width: 0 !important;
+          flex-shrink: 1 !important;
           overflow-wrap: break-word !important;
           word-wrap: break-word !important;
           word-break: normal !important;
@@ -139,6 +147,7 @@ export default function AboutStyles() {
           margin-bottom: 1.5rem;
           word-break: normal;
           overflow-wrap: break-word;
+          max-width: 100% !important;
         }
       }
     `}</style>

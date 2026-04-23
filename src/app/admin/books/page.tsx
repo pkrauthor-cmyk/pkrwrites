@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { prisma } from '@/lib/db';
 import { Trash2, Star, ExternalLink, RefreshCw } from 'lucide-react';
 import { deleteBook, toggleBookFeatured, syncBooks } from './actions';
+import SyncButton from './_components/SyncButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,15 +26,7 @@ export default async function BooksListPage() {
           <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'var(--font-playfair)' }}>Books Library</h1>
           <p style={{ color: 'var(--text-muted)' }}>Manage your synchronized Amazon book catalog.</p>
         </div>
-        <form action={async () => {
-          'use server';
-          await syncBooks();
-        }}>
-          <button className="btn btn-outline" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-            <RefreshCw size={18} />
-            <span>RUN SYNC</span>
-          </button>
-        </form>
+        <SyncButton />
       </div>
 
       <div className="glass-card" style={{ overflow: 'hidden' }}>

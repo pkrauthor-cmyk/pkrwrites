@@ -12,10 +12,10 @@ interface BookEditorProps {
     asin: string;
     title: string;
     author: string;
-    coverUrl?: string;
-    amznLink?: string;
-    description?: string;
-    price?: string;
+    coverUrl?: string | null;
+    amznLink?: string | null;
+    description?: string | null;
+    price?: string | null;
   };
 }
 
@@ -27,10 +27,10 @@ export default function BookEditor({ initialData }: BookEditorProps) {
     asin: initialData?.asin || '',
     title: initialData?.title || '',
     author: initialData?.author || 'PK R',
-    coverUrl: initialData?.coverUrl || '',
-    amznLink: initialData?.amznLink || '',
-    description: initialData?.description || '',
-    price: initialData?.price || '',
+    coverUrl: initialData?.coverUrl ?? '',
+    amznLink: initialData?.amznLink ?? '',
+    description: initialData?.description ?? '',
+    price: initialData?.price ?? '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

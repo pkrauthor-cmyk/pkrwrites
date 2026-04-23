@@ -88,7 +88,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <ReadingProgress />
       <SmartNavigationController />
       <ScrollReveal />
-      <ScriptExecutor />
+      <ScriptExecutor content={post.content} isEnabled={post.isCustomHtml || false} />
 
       <article style={{ paddingTop: '160px', paddingBottom: '10rem' }}>
         <div className="container" style={{ maxWidth: '900px' }}>

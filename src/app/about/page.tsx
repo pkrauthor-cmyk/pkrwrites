@@ -91,24 +91,12 @@ export default async function AboutPage() {
             {/* RIGHT CONTENT */}
             <div className="fade-in bio-content-area" style={{ animationDelay: '0.3s' }}>
               <div className="section-title" style={{ textAlign: 'left', marginBottom: 'clamp(2.5rem, 8vw, 4.5rem)' }}>
-                <h3 style={{
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.3em',
-                  color: 'var(--primary)',
-                  marginBottom: '1rem',
-                  fontSize: '0.75rem',
-                  fontWeight: 700
-                }}>
+                <h3 className="biography-label">
                   Biography
                 </h3>
 
-                <h1 style={{
-                  fontSize: 'clamp(2.2rem, 6vw, 4.5rem)',
-                  marginBottom: '2rem',
-                  fontWeight: 800,
-                  lineHeight: 1.1
-                }}>
-                  {page?.title || 'From Blueprints to the Stars'}
+                <h1 className="about-main-title">
+                  {page?.title || 'Architect of stories, voyaging through the cosmic infinite.'}
                 </h1>
 
                 <div className="underline"></div>
@@ -121,31 +109,28 @@ export default async function AboutPage() {
                     dangerouslySetInnerHTML={{ __html: page.content }}
                   />
                 ) : (
-                  <>
-                    <p style={{ marginBottom: '2rem' }}>
-                      Welcome to <strong style={{ color: 'white' }}>PKR Writes</strong>. I am PKR, a Civil Engineer turned storyteller exploring the universe through imagination and emotion.
+                  <div className="fallback-bio-content">
+                    <p>
+                      PKR is a visionary storyteller dedicated to exploring the boundaries of science fiction and speculative mystery. With a focus on cosmic mysteries and the philosophy of existence, PKR weaves intricate narratives that challenge the mind while touching the soul.
+                    </p>
+                    
+                    <p>
+                      From the bioluminescent jungles of far-flung galaxies to the intimate corridors of memory in historical fiction, PKR’s work is characterized by cinematic detail, emotional resonance, and intellectual depth.
                     </p>
 
-                    <p style={{ marginBottom: '2rem' }}>
-                      My writing bridges science, consciousness, and storytelling—creating cinematic experiences that inspire and provoke thought.
+                    <p>
+                      When not architecting new universes, PKR can be found studying the latest advancements in quantum physics or lost in the timeless beauty of classical literature. This bridge between the future and the past is the heartbeat of every PKR novel.
                     </p>
-                  </>
+                  </div>
                 )}
 
                 <div className="mission-highlight">
-                  <h3 style={{
-                    color: 'white',
-                    marginTop: '4rem',
-                    marginBottom: '1.5rem',
-                    fontSize: 'clamp(1.8rem, 4vw, 2.2rem)',
-                    fontWeight: 700,
-                    fontFamily: 'var(--font-playfair)'
-                  }}>
+                  <h3 className="mission-title">
                     The Mission
                   </h3>
 
-                  <p style={{ fontSize: '1.2rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.9)', fontStyle: 'italic' }}>
-                    The goal of PKR Writes is to ignite curiosity and wonder—connecting ideas, imagination, and impact.
+                  <p className="mission-text">
+                    The goal of PKR Writes is to ignite curiosity and wonder—connecting ideas, imagination, and impact through the power of professional storytelling.
                   </p>
                 </div>
               </div>

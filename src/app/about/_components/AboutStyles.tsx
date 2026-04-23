@@ -20,13 +20,45 @@ export default function AboutStyles() {
         margin-top: 5rem;
       }
       
+      .biography-label {
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+      .about-main-title {
+        font-size: clamp(2.2rem, 6vw, 4.5rem);
+        margin-bottom: 2rem;
+        fontWeight: 800;
+        line-height: 1.1;
+      }
+      .fallback-bio-content p {
+        margin-bottom: 2rem;
+      }
+      .mission-title {
+        color: white;
+        margin-top: 4rem;
+        margin-bottom: 1.5rem;
+        font-size: clamp(1.8rem, 4vw, 2.2rem);
+        font-weight: 700;
+        font-family: var(--font-playfair);
+      }
+      .mission-text {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: rgba(255,255,255,0.9);
+        font-style: italic;
+      }
+      
       @media (max-width: 1024px) {
         .about-grid {
           grid-template-columns: 1fr;
           gap: 4rem;
         }
         .portrait-container {
-          max-width: 500px;
+          max-width: 420px;
           margin: 0 auto;
         }
         .bio-content-area {
@@ -44,6 +76,9 @@ export default function AboutStyles() {
           padding-left: 0;
           padding-top: 3rem;
           text-align: center;
+        }
+        .about-main-title {
+          font-size: clamp(2rem, 8vw, 3rem);
         }
       }
     `}</style>

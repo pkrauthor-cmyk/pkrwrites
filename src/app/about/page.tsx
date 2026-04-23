@@ -89,7 +89,7 @@ export default async function AboutPage() {
             </div>
 
             {/* RIGHT CONTENT */}
-            <div className="bio-content-area" style={{ minWidth: 0, width: '100%', maxWidth: '100%', overflow: 'hidden', boxSizing: 'border-box' }}>
+            <div className="bio-content-area" style={{ minWidth: 0, width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
               <div className="section-title-mobile">
                 <h3 className="biography-label">
                   Biography

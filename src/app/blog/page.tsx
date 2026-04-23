@@ -6,6 +6,8 @@ import Footer from '@/components/Footer';
 // 🚀 VERY IMPORTANT
 export const dynamic = "force-dynamic";
 
+import BlogListStyles from '@/app/blog/_components/BlogListStyles';
+
 export default async function BlogPage() {
   let posts: any[] = [];
   let books: any[] = [];
@@ -37,6 +39,7 @@ export default async function BlogPage() {
   return (
     <main style={{ minHeight: '100vh', background: '#050505' }}>
       <Navbar />
+      <BlogListStyles />
 
       <section style={{ paddingTop: '160px', paddingBottom: '8rem' }}>
         <div className="container" style={{ maxWidth: '1000px' }}>
@@ -140,36 +143,6 @@ export default async function BlogPage() {
       </section>
 
       <Footer />
-
-      <style jsx>{`
-        .post-title-hover:hover {
-          color: var(--primary) !important;
-        }
-        .read-more-link span {
-          transition: transform 0.3s ease;
-        }
-        .read-more-link:hover span {
-          transform: translateX(5px);
-        }
-        .blog-entry {
-          opacity: 0;
-          transform: translateY(20px);
-          animation: fadeIn 0.8s forwards;
-        }
-        @keyframes fadeIn {
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @media (max-width: 768px) {
-          .blog-entry {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            text-align: center;
-          }
-          .blog-entry div {
-            margin: 0 auto;
-          }
-        }
-      `}</style>
     </main>
   );
 }

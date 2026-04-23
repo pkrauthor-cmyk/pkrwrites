@@ -135,14 +135,15 @@ export default function AboutStyles() {
           max-width: 100% !important;
           width: auto !important;
           min-width: 0 !important;
-          flex-shrink: 1 !important;
-          overflow-wrap: break-word !important;
+          overflow-wrap: normal !important;
+          word-wrap: normal !important;
           word-break: normal !important;
           white-space: normal !important;
           box-sizing: border-box !important;
           hyphens: none !important;
           font-size: 1rem !important;
-          line-height: 1.7 !important;
+          line-height: 1.8 !important;
+          letter-spacing: normal !important;
         }
         .about-main-title {
           font-size: clamp(1.8rem, 8vw, 2.2rem);

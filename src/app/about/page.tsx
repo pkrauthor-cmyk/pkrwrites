@@ -49,7 +49,7 @@ export default async function AboutPage() {
           zIndex: 0
         }}></div>
 
-        <div className="container" style={{ position: 'relative', zIndex: 1, maxWidth: '1100px' }}>
+        <div className="container" style={{ position: 'relative', zIndex: 1, maxWidth: '1100px', width: '100%', boxSizing: 'border-box' }}>
           <div className="about-grid">
             {/* LEFT IMAGE */}
             <div className="portrait-container">
@@ -89,7 +89,7 @@ export default async function AboutPage() {
             </div>
 
             {/* RIGHT CONTENT */}
-            <div className="bio-content-area">
+            <div className="bio-content-area" style={{ minWidth: 0, width: '100%', maxWidth: '100%', overflow: 'hidden', boxSizing: 'border-box' }}>
               <div className="section-title-mobile">
                 <h3 className="biography-label">
                   Biography
@@ -106,6 +106,14 @@ export default async function AboutPage() {
                 {page?.content ? (
                   <div
                     className="db-rendered-content"
+                    style={{
+                      width: '100%',
+                      maxWidth: '100%',
+                      overflowWrap: 'break-word',
+                      wordBreak: 'normal',
+                      overflow: 'hidden',
+                      boxSizing: 'border-box'
+                    }}
                     dangerouslySetInnerHTML={{ __html: page.content }}
                   />
                 ) : (

@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { PlusCircle, Edit, Trash2, ExternalLink, Send } from 'lucide-react';
 import { deleteBlogPost, publishBlogPost } from './actions';
 
+export const dynamic = 'force-dynamic';
+
 export default async function BlogAdminPage() {
   let posts: any[] = [];
   let trashedCount = 0;

@@ -33,9 +33,9 @@ export default async function AboutPage() {
         paddingBottom: 'clamp(4rem, 10vh, 8rem)', 
         background: 'var(--bg-dark)', 
         position: 'relative', 
-        overflow: 'hidden',
-        paddingLeft: '1.5rem',
-        paddingRight: '1.5rem'
+        overflowX: 'hidden',
+        paddingLeft: 'clamp(1rem, 4vw, 2rem)',
+        paddingRight: 'clamp(1rem, 4vw, 2rem)'
       }}>
 
         <div style={{

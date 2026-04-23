@@ -58,12 +58,7 @@ export default async function BlogPage() {
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6rem' }}>
               {postsWithBooks.map((post) => (
-                <article key={post.id} className="blog-entry" style={{ 
-                  display: 'grid', 
-                  gridTemplateColumns: '180px 1fr', 
-                  gap: '4rem',
-                  alignItems: 'start'
-                }}>
+                <article key={post.id} className="blog-entry">
                   {/* Book Cover on the Left */}
                   <div style={{ position: 'relative' }}>
                     <div style={{

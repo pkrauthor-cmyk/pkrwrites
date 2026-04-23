@@ -116,12 +116,14 @@ export default function AboutStyles() {
           font-size: 1.05rem;
           word-break: normal;
           overflow-wrap: break-word;
-          width: 100%;
-          max-width: 100%;
-        }
-        .db-rendered-content div, .db-rendered-content section, .db-rendered-content p {
-          max-width: 100% !important;
           width: 100% !important;
+          max-width: 100% !important;
+          display: block !important;
+        }
+        .db-rendered-content * {
+          max-width: 100% !important;
+          width: auto !important;
+          height: auto !important;
           margin-left: 0 !important;
           margin-right: 0 !important;
           padding-left: 0 !important;
@@ -130,6 +132,7 @@ export default function AboutStyles() {
           word-wrap: break-word !important;
           word-break: normal !important;
           white-space: normal !important;
+          box-sizing: border-box !important;
         }
         .about-main-title {
           font-size: clamp(1.8rem, 8vw, 2.4rem);

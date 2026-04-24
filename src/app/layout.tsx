@@ -16,6 +16,12 @@ export const metadata: Metadata = {
   title: "PKR Writes – Books That Inspire & Educate",
   description: "Official author website of PKR. Explore books, self-publishing insights, and powerful ideas that drive growth and success.",
   keywords: ["PKR Writes", "self publishing", "amazon kdp", "writing tips", "books", "author"],
+
+  // ✅ ADDED GOOGLE VERIFICATION (ONLY CHANGE)
+  verification: {
+    google: "2T8hTwiUMq2lU3POpe_r9XmtUqNBv7lI31YFIjXhhUo",
+  },
+
   openGraph: {
     title: "PKR Writes",
     description: "Books That Inspire & Educate",

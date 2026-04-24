@@ -1,4 +1,6 @@
-import Link from 'next/link';
+'use client';
+
+import { useState } from 'react';
 
 interface BookProps {
   asin: string;
@@ -10,6 +12,9 @@ interface BookProps {
 
 export default function BookCard({ book }: { book: BookProps }) {
   const amazonUrl = book.amznLink || `https://www.amazon.com/dp/${book.asin}`;
+  const [imgError, setImgError] = useState(false);
+
+  const showCover = book.coverUrl && !imgError;
 
   return (
     <div className="glass-card" style={{ 
@@ -29,19 +34,31 @@ export default function BookCard({ book }: { book: BookProps }) {
         marginBottom: '2.5rem',
         overflow: 'hidden',
         borderRadius: '1px',
-        backgroundColor: '#000',
+        backgroundColor: '#111',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)'
       }}>
-        {book.coverUrl ? (
+        {showCover ? (
           <img 
-            src={book.coverUrl} 
+            src={book.coverUrl!} 
             alt={book.title} 
             style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s var(--ease-premium)' }}
             className="book-image"
+            onError={() => setImgError(true)}
+            referrerPolicy="no-referrer"
+            crossOrigin="anonymous"
           />
         ) : (
-          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', opacity: 0.3, letterSpacing: '0.2em', fontSize: '0.6rem' }}>
-            ◆ PENDING RELEASE ◆
+          <div style={{ 
+            width: '100%', height: '100%', 
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', 
+            gap: '1rem',
+            background: 'linear-gradient(135deg, rgba(197,160,89,0.05) 0%, rgba(0,0,0,0) 100%)'
+          }}>
+            <span style={{ fontSize: '2.5rem', opacity: 0.15 }}>📖</span>
+            <span style={{ color: 'var(--primary)', opacity: 0.4, letterSpacing: '0.2em', fontSize: '0.55rem', fontWeight: 700, textTransform: 'uppercase' }}>
+              ◆ Cover Unavailable ◆
+            </span>
           </div>
         )}
         {/* Subtle Overlay Glow */}

@@ -168,30 +168,26 @@ export default async function AboutPage() {
       ══════════════════════════════════════ */}
       <section className="about-bio-section">
         <div className="container">
-          <div className="about-bio-grid">
+          {page?.content ? (
+            <div
+              className="about-db-content"
+              style={{
+                width: '100%',
+                boxSizing: 'border-box',
+                overflow: 'hidden',
+                minWidth: 0
+              }}
+              dangerouslySetInnerHTML={{ __html: page.content }}
+            />
+          ) : (
+            <div className="about-bio-grid">
+              {/* Left — Bio Text */}
+              <div style={{ minWidth: 0, maxWidth: '100%', overflow: 'hidden', boxSizing: 'border-box' }}>
+                <div className="about-section-label">Biography</div>
+                <h2 className="about-bio-heading">
+                  {page?.title || 'Voyaging through the cosmic infinite.'}
+                </h2>
 
-            {/* Left — Bio Text */}
-            <div style={{ minWidth: 0, maxWidth: '100%', overflow: 'hidden', boxSizing: 'border-box' }}>
-              <div className="about-section-label">Biography</div>
-              <h2 className="about-bio-heading">
-                {page?.title || 'Voyaging through the cosmic infinite.'}
-              </h2>
-
-              {page?.content ? (
-                <div
-                  className="about-db-content"
-                  style={{
-                    width: '100%',
-                    maxWidth: '100%',
-                    boxSizing: 'border-box',
-                    overflow: 'hidden',
-                    overflowWrap: 'break-word',
-                    wordBreak: 'normal',
-                    minWidth: 0
-                  }}
-                  dangerouslySetInnerHTML={{ __html: page.content }}
-                />
-              ) : (
                 <div className="about-bio-text">
                   <p>
                     PKR is a visionary storyteller dedicated to exploring the boundaries of science
@@ -210,62 +206,62 @@ export default async function AboutPage() {
                     and buildings, but built from the substance of imagination.
                   </p>
                 </div>
-              )}
+              </div>
+
+              {/* Right — Highlight Cards */}
+              <div className="about-highlights">
+                <div className="about-highlight-card">
+                  <div className="about-highlight-icon">🔭</div>
+                  <div className="about-highlight-title">Science at the Core</div>
+                  <div className="about-highlight-text">
+                    Every narrative is grounded in real astrophysics, quantum theory, and
+                    neuroscience — fiction that teaches without preaching.
+                  </div>
+                </div>
+
+                <div className="about-highlight-card">
+                  <div className="about-highlight-icon">🧠</div>
+                  <div className="about-highlight-title">Philosophy of Consciousness</div>
+                  <div className="about-highlight-text">
+                    What is awareness? What persists beyond a lifetime? PKR's novels are
+                    extended meditations on these unanswerable — and therefore irresistible — questions.
+                  </div>
+                </div>
+
+                <div className="about-highlight-card">
+                  <div className="about-highlight-icon">🌍</div>
+                  <div className="about-highlight-title">Human Above All</div>
+                  <div className="about-highlight-text">
+                    No matter how cosmic the canvas, PKR keeps love, loss, and longing at
+                    the centre of every story. The universe is the backdrop; the human heart is the stage.
+                  </div>
+                </div>
+
+                <div className="about-highlight-card" style={{ borderLeft: '3px solid rgba(255,255,255,0.08)', background: 'rgba(197,160,89,0.03)' }}>
+                  <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', color: 'var(--primary)', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                    Available Now
+                  </div>
+                  <div className="about-highlight-title" style={{ marginBottom: '1.2rem' }}>
+                    Three Novels on Amazon KDP
+                  </div>
+                  <a
+                    href="https://www.amazon.com/author/pk_r"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                    style={{ fontSize: '0.68rem', padding: '0.85rem 1.6rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+                  >
+                    VISIT AUTHOR PAGE
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
             </div>
-
-            {/* Right — Highlight Cards */}
-            <div className="about-highlights">
-              <div className="about-highlight-card">
-                <div className="about-highlight-icon">🔭</div>
-                <div className="about-highlight-title">Science at the Core</div>
-                <div className="about-highlight-text">
-                  Every narrative is grounded in real astrophysics, quantum theory, and
-                  neuroscience — fiction that teaches without preaching.
-                </div>
-              </div>
-
-              <div className="about-highlight-card">
-                <div className="about-highlight-icon">🧠</div>
-                <div className="about-highlight-title">Philosophy of Consciousness</div>
-                <div className="about-highlight-text">
-                  What is awareness? What persists beyond a lifetime? PKR's novels are
-                  extended meditations on these unanswerable — and therefore irresistible — questions.
-                </div>
-              </div>
-
-              <div className="about-highlight-card">
-                <div className="about-highlight-icon">🌍</div>
-                <div className="about-highlight-title">Human Above All</div>
-                <div className="about-highlight-text">
-                  No matter how cosmic the canvas, PKR keeps love, loss, and longing at
-                  the centre of every story. The universe is the backdrop; the human heart is the stage.
-                </div>
-              </div>
-
-              <div className="about-highlight-card" style={{ borderLeft: '3px solid rgba(255,255,255,0.08)', background: 'rgba(197,160,89,0.03)' }}>
-                <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', color: 'var(--primary)', textTransform: 'uppercase', marginBottom: '1rem' }}>
-                  Available Now
-                </div>
-                <div className="about-highlight-title" style={{ marginBottom: '1.2rem' }}>
-                  Three Novels on Amazon KDP
-                </div>
-                <a
-                  href="https://www.amazon.com/author/pk_r"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary"
-                  style={{ fontSize: '0.68rem', padding: '0.85rem 1.6rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
-                >
-                  VISIT AUTHOR PAGE
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                    <polyline points="15 3 21 3 21 9" />
-                    <line x1="10" y1="14" x2="21" y2="3" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </section>
 

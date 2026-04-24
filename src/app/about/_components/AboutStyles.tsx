@@ -405,15 +405,6 @@ export default function AboutStyles() {
         hyphens: none;
       }
 
-      /* Force ALL children of DB content to stay within bounds */
-      .about-db-content * {
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        overflow-wrap: break-word !important;
-        word-break: normal !important;
-        white-space: normal !important;
-        hyphens: none !important;
-      }
 
       .about-db-content p { margin-bottom: 1.8rem; }
 

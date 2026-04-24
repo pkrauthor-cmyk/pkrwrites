@@ -7,7 +7,85 @@ export default function AboutStyles() {
          ABOUT PAGE — PREMIUM REDESIGN
       ============================================ */
 
+      /* ---- Novels Section ---- */
+      .about-novels-section {
+        background: var(--bg-darker);
+        padding: 8rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .about-novels-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(197,160,89,0.2), transparent);
+      }
+
+      .about-novels-header {
+        text-align: center;
+        margin-bottom: 5rem;
+      }
+
+      .about-novels-title {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 800;
+        font-family: var(--font-playfair);
+        line-height: 1.1;
+        margin-top: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .about-novels-subtitle {
+        font-size: 1.05rem;
+        color: var(--text-muted);
+        line-height: 1.8;
+        max-width: 620px;
+        margin: 0 auto;
+      }
+
+      .about-novels-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 3rem;
+      }
+
+      /* Hover lift on book covers */
+      .about-novels-grid .book-image:hover {
+        transform: scale(1.05);
+      }
+
+      .about-novels-empty {
+        text-align: center;
+        padding: 5rem 2rem;
+        border: 1px dashed var(--glass-border);
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      @media (max-width: 768px) {
+        .about-novels-grid {
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
+          gap: 2rem !important;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .about-novels-grid {
+          grid-template-columns: 1fr !important;
+          max-width: 340px;
+          margin: 0 auto;
+        }
+      }
+
       /* ---- Hero Section ---- */
+
       .about-hero {
         position: relative;
         min-height: 100vh;

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import BookCard from '@/components/BookCard';
 import { prisma } from '@/lib/db';
 
 export const dynamic = "force-dynamic";
@@ -48,6 +49,7 @@ const missionTiles = [
 
 export default async function AboutPage() {
   let page: any = null;
+  let books: any[] = [];
 
   try {
     page = await prisma.page.findUnique({
@@ -55,6 +57,14 @@ export default async function AboutPage() {
     });
   } catch (error) {
     console.error("About page DB fetch error:", error);
+  }
+
+  try {
+    books = await prisma.book.findMany({
+      orderBy: { updatedAt: 'desc' }
+    });
+  } catch (error) {
+    console.error("About page books fetch error:", error);
   }
 
   return (
@@ -152,6 +162,48 @@ export default async function AboutPage() {
           </div>
         </div>
       </div>
+
+      {/* ══════════════════════════════════════
+          THE NOVELS SECTION
+      ══════════════════════════════════════ */}
+      <section className="about-novels-section">
+        <div className="container">
+          <div className="about-novels-header">
+            <div className="about-section-label" style={{ justifyContent: 'center' }}>The Collection</div>
+            <h2 className="about-novels-title">
+              Three Novels. <span className="about-hero-title-accent">One Infinite Journey.</span>
+            </h2>
+            <p className="about-novels-subtitle">
+              Each book stands alone — yet together they form a tapestry of consciousness,
+              cosmos, and the irreducible mystery of being human. Available now on Amazon KDP.
+            </p>
+          </div>
+
+          {books.length > 0 ? (
+            <div className="about-novels-grid">
+              {books.map((book) => (
+                <BookCard key={book.asin} book={book} />
+              ))}
+            </div>
+          ) : (
+            <div className="about-novels-empty">
+              <span style={{ fontSize: '3rem', opacity: 0.12 }}>📚</span>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginTop: '1.5rem', letterSpacing: '0.05em' }}>
+                Visit the full collection on Amazon KDP
+              </p>
+              <a
+                href="https://www.amazon.com/author/pk_r"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline"
+                style={{ marginTop: '2rem', fontSize: '0.75rem' }}
+              >
+                VIEW ON AMAZON
+              </a>
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* ══════════════════════════════════════
           BIO SECTION

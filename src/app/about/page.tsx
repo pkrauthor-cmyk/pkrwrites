@@ -213,7 +213,7 @@ export default async function AboutPage() {
           <div className="about-bio-grid">
 
             {/* Left — Bio Text */}
-            <div>
+            <div style={{ minWidth: 0, maxWidth: '100%', overflow: 'hidden', boxSizing: 'border-box' }}>
               <div className="about-section-label">Biography</div>
               <h2 className="about-bio-heading">
                 {page?.title || 'Voyaging through the cosmic infinite.'}
@@ -222,7 +222,15 @@ export default async function AboutPage() {
               {page?.content ? (
                 <div
                   className="about-db-content"
-                  style={{ width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflowWrap: 'break-word', wordBreak: 'normal' }}
+                  style={{
+                    width: '100%',
+                    maxWidth: '100%',
+                    boxSizing: 'border-box',
+                    overflow: 'hidden',
+                    overflowWrap: 'break-word',
+                    wordBreak: 'normal',
+                    minWidth: 0
+                  }}
                   dangerouslySetInnerHTML={{ __html: page.content }}
                 />
               ) : (

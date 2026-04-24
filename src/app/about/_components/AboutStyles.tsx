@@ -329,6 +329,18 @@ export default function AboutStyles() {
         grid-template-columns: 1fr 1fr;
         gap: 8rem;
         align-items: start;
+        /* Critical: prevents grid children from overflowing */
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* Both grid children must have min-width: 0 to allow shrinking */
+      .about-bio-grid > * {
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
       }
 
       .about-section-label {
@@ -383,6 +395,24 @@ export default function AboutStyles() {
         font-size: 1.05rem;
         line-height: 1.95;
         color: rgba(255,255,255,0.75);
+        /* Universal overflow guard — applies at ALL screen sizes */
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+        overflow-wrap: break-word;
+        word-break: normal;
+        hyphens: none;
+      }
+
+      /* Force ALL children of DB content to stay within bounds */
+      .about-db-content * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-wrap: break-word !important;
+        word-break: normal !important;
+        white-space: normal !important;
+        hyphens: none !important;
       }
 
       .about-db-content p { margin-bottom: 1.8rem; }
@@ -392,6 +422,8 @@ export default function AboutStyles() {
         color: white;
         font-family: var(--font-playfair);
         margin: 2.5rem 0 1rem;
+        overflow-wrap: break-word;
+        word-break: normal;
       }
 
       /* Right column — highlights */

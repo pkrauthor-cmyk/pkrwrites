@@ -133,11 +133,14 @@ export default function AboutStyles() {
 
       .about-hero-grid {
         display: grid;
-        grid-template-columns: 1fr 520px;
-        gap: 6rem;
+        grid-template-columns: 1fr minmax(0, 480px);
+        gap: 5rem;
         align-items: end;
         position: relative;
         z-index: 1;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .about-hero-eyebrow {
@@ -338,12 +341,16 @@ export default function AboutStyles() {
         display: flex;
         align-items: center;
         gap: 1rem;
+        flex-wrap: wrap;
+        overflow: hidden;
+        max-width: 100%;
       }
 
       .about-section-label::before {
         content: '';
         display: block;
-        width: 40px;
+        flex-shrink: 0;
+        width: 30px;
         height: 1px;
         background: var(--primary);
         opacity: 0.5;
@@ -394,20 +401,27 @@ export default function AboutStyles() {
         gap: 2rem;
         position: sticky;
         top: 120px;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .about-highlight-card {
-        padding: 2rem 2.2rem;
+        padding: 1.8rem 2rem;
         background: rgba(255,255,255,0.018);
         border: 1px solid var(--glass-border);
         border-radius: 3px;
         border-left: 3px solid var(--primary);
         transition: background 0.35s ease, transform 0.35s ease;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
       }
 
       .about-highlight-card:hover {
         background: rgba(197,160,89,0.04);
-        transform: translateX(6px);
+        transform: translateX(4px);
       }
 
       .about-highlight-icon {
@@ -422,12 +436,16 @@ export default function AboutStyles() {
         color: white;
         margin-bottom: 0.6rem;
         letter-spacing: 0.02em;
+        overflow-wrap: break-word;
+        word-break: normal;
       }
 
       .about-highlight-text {
         font-size: 0.88rem;
         color: var(--text-muted);
         line-height: 1.7;
+        overflow-wrap: break-word;
+        word-break: normal;
       }
 
       /* ---- Quote Divider ---- */
@@ -576,23 +594,30 @@ export default function AboutStyles() {
       .about-mission-inner {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 6rem;
+        gap: 5rem;
         align-items: center;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .about-mission-heading {
-        font-size: clamp(2rem, 4vw, 3.2rem);
+        font-size: clamp(1.8rem, 4vw, 3.2rem);
         font-weight: 800;
-        line-height: 1.1;
+        line-height: 1.15;
         margin-bottom: 2rem;
         font-family: var(--font-playfair);
+        overflow-wrap: break-word;
+        word-break: normal;
       }
 
       .about-mission-text {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         line-height: 1.9;
         color: rgba(255,255,255,0.75);
         margin-bottom: 1.8rem;
+        overflow-wrap: break-word;
+        word-break: normal;
       }
 
       .about-mission-text:last-of-type { margin-bottom: 0; }
@@ -601,6 +626,7 @@ export default function AboutStyles() {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1.5rem;
+        min-width: 0;
       }
 
       .about-mission-tile {
@@ -691,62 +717,141 @@ export default function AboutStyles() {
       }
 
       /* ============================================
-         RESPONSIVE — MOBILE ≤ 900px
+         RESPONSIVE — ≤ 1024px
+      ============================================ */
+      @media (max-width: 1024px) {
+        .about-hero-grid {
+          grid-template-columns: 1fr minmax(0, 380px) !important;
+          gap: 3.5rem !important;
+        }
+      }
+
+      /* ============================================
+         RESPONSIVE — ≤ 900px (Tablet / Mobile)
       ============================================ */
       @media (max-width: 900px) {
+        /* Hero */
         .about-hero-grid {
           grid-template-columns: 1fr !important;
-          gap: 3.5rem !important;
+          gap: 3rem !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          overflow: hidden !important;
         }
 
         .about-portrait-wrap {
-          max-width: 320px;
+          max-width: 280px;
+          width: 100%;
           margin: 0 auto;
           order: -1;
         }
 
         .about-hero-title {
-          font-size: clamp(2.4rem, 9vw, 3.5rem) !important;
+          font-size: clamp(2rem, 9vw, 3.2rem) !important;
+          word-break: normal !important;
+          overflow-wrap: break-word !important;
         }
 
         .about-hero-subtitle {
-          font-size: 1rem !important;
+          font-size: 0.95rem !important;
+          max-width: 100% !important;
         }
 
+        /* Stats */
         .about-stats-grid {
           grid-template-columns: 1fr 1fr !important;
         }
 
-        .about-stat-item:nth-child(2) {
-          border-right: none;
-        }
-
+        .about-stat-item:nth-child(2) { border-right: none; }
         .about-stat-item:nth-child(3) {
           border-top: 1px solid var(--glass-border);
           border-right: 1px solid var(--glass-border);
         }
-
         .about-stat-item:nth-child(4) {
           border-top: 1px solid var(--glass-border);
         }
 
+        .about-stat-label {
+          font-size: 0.6rem !important;
+          letter-spacing: 0.12em !important;
+        }
+
+        /* Bio Grid */
         .about-bio-grid {
           grid-template-columns: 1fr !important;
-          gap: 3.5rem !important;
+          gap: 3rem !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
         }
 
         .about-highlights {
           position: static;
           top: auto;
+          width: 100% !important;
+          max-width: 100% !important;
+          min-width: 0 !important;
+          box-sizing: border-box !important;
         }
 
+        .about-highlight-card {
+          box-sizing: border-box !important;
+          max-width: 100% !important;
+          overflow: hidden !important;
+          transform: none !important;
+        }
+
+        .about-highlight-card:hover {
+          transform: none !important;
+        }
+
+        .about-highlight-text {
+          overflow-wrap: break-word !important;
+          word-break: normal !important;
+          white-space: normal !important;
+        }
+
+        /* Mission */
         .about-mission-inner {
           grid-template-columns: 1fr !important;
-          gap: 3.5rem !important;
+          gap: 3rem !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
+        }
+
+        .about-mission-heading {
+          font-size: clamp(1.6rem, 7vw, 2.5rem) !important;
+          overflow-wrap: break-word !important;
+        }
+
+        .about-mission-text {
+          font-size: 1rem !important;
+          overflow-wrap: break-word !important;
         }
 
         .about-mission-visual {
           grid-template-columns: 1fr 1fr !important;
+          min-width: 0 !important;
+        }
+
+        .about-mission-tile {
+          padding: 1.5rem 1.2rem !important;
+          min-width: 0 !important;
+          box-sizing: border-box !important;
+        }
+
+        .about-mission-tile-text {
+          overflow-wrap: break-word !important;
+          word-break: normal !important;
+          font-size: 0.75rem !important;
+        }
+
+        /* Timeline */
+        .about-timeline {
+          width: 100% !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
         }
 
         .about-timeline::before {
@@ -759,13 +864,36 @@ export default function AboutStyles() {
           font-size: 1rem;
         }
 
-        .about-blockquote::before {
-          font-size: 7rem;
-          top: -2rem;
-          left: 0;
+        .about-timeline-body {
+          min-width: 0;
+          overflow-wrap: break-word;
+          word-break: normal;
         }
 
-        /* Preserve existing classes used in the page component */
+        .about-timeline-desc {
+          overflow-wrap: break-word !important;
+          word-break: normal !important;
+        }
+
+        /* Quote */
+        .about-blockquote::before {
+          font-size: 6rem;
+          top: -1.5rem;
+          left: 0;
+          opacity: 0.05;
+        }
+
+        .about-quote-text {
+          font-size: clamp(1.2rem, 5vw, 1.8rem) !important;
+        }
+
+        /* Novels grid */
+        .about-novels-grid {
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
+          gap: 2rem !important;
+        }
+
+        /* DB content */
         .about-grid {
           display: flex !important;
           flex-direction: column !important;
@@ -812,6 +940,8 @@ export default function AboutStyles() {
           font-size: 1rem !important;
           overflow-wrap: break-word !important;
           word-break: normal !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
         }
 
         .about-db-content * {
@@ -820,11 +950,21 @@ export default function AboutStyles() {
           white-space: normal !important;
           box-sizing: border-box !important;
         }
+
+        /* Section labels — hide line on very small screens */
+        .about-section-label::before {
+          display: none;
+        }
       }
 
-      @media (max-width: 600px) {
-        .about-stats-grid {
-          grid-template-columns: 1fr 1fr !important;
+      /* ============================================
+         RESPONSIVE — ≤ 480px (Small Mobile)
+      ============================================ */
+      @media (max-width: 480px) {
+        .about-novels-grid {
+          grid-template-columns: 1fr !important;
+          max-width: 340px;
+          margin: 0 auto;
         }
 
         .about-mission-visual {
@@ -832,15 +972,36 @@ export default function AboutStyles() {
         }
 
         .about-hero-actions {
-          flex-direction: column;
-          gap: 1rem;
+          flex-direction: column !important;
+          gap: 1rem !important;
         }
 
         .about-cta-actions {
-          flex-direction: column;
-          align-items: center;
+          flex-direction: column !important;
+          align-items: center !important;
+        }
+
+        .about-stats-grid {
+          grid-template-columns: 1fr 1fr !important;
+        }
+
+        .about-stat-item {
+          padding: 1.2rem 0.8rem !important;
+        }
+
+        .about-quote-section {
+          padding: 4rem 0 !important;
+        }
+
+        .about-novels-section {
+          padding: 5rem 0 !important;
+        }
+
+        .about-hero-title {
+          font-size: clamp(1.9rem, 10vw, 2.8rem) !important;
         }
       }
+
     `}</style>
   );
 }

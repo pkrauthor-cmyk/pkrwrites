@@ -182,6 +182,30 @@ export default function Footer() {
           letterSpacing: '0.05em'
         }}>
           <p>© {currentYear} PKR Writes. All rights reserved.</p>
+          <a
+            href="/books"
+            style={{
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              letterSpacing: '0.2em',
+              color: 'var(--primary)',
+              textTransform: 'uppercase',
+              border: '1px solid rgba(197,160,89,0.25)',
+              padding: '0.5rem 1.2rem',
+              borderRadius: '2px',
+              transition: 'all 0.3s ease',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}
+            className="footer-books-link"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+            MY BOOKS
+          </a>
           <div style={{ display: 'flex', gap: '3rem', fontWeight: 700, letterSpacing: '0.2em', color: 'rgba(255,255,255,0.4)' }}>
             <span style={{ fontSize: '0.65rem' }}>DESIGN BY PKR</span>
             <span style={{ fontSize: '0.65rem' }}>EST. 2024</span>
@@ -197,6 +221,11 @@ const styles = `
     opacity: 1 !important;
     color: var(--primary);
     transform: translateX(5px);
+  }
+  .footer-books-link:hover {
+    background: rgba(197,160,89,0.08) !important;
+    border-color: var(--primary) !important;
+    transform: translateY(-2px);
   }
 `;
 
